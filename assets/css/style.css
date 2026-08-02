@@ -1,0 +1,108 @@
+/* ==========================================================
+   Aprende Español
+   Main Stylesheet
+   Version: 1.0
+========================================================== */
+
+/* ---------- CSS Modules ---------- */
+
+@import url("variables.css");
+@import url("layout.css");
+@import url("components.css");
+@import url("animations.css");
+
+
+/* ==========================================================
+   GLOBAL RESET
+========================================================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+
+    font-family: var(--font-family);
+
+    background: var(--color-background);
+
+    color: var(--color-text);
+
+    line-height: 1.6;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    text-rendering: optimizeLegibility;
+}
+
+
+/* ==========================================================
+   IMAGES
+========================================================== */
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+
+/* ==========================================================
+   LINKS
+========================================================== */
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* ==========================================================
+   LISTS
+========================================================== */
+
+ul,
+ol {
+    list-style: none;
+}
+
+
+/* ==========================================================
+   BUTTONS
+========================================================== */
+
+button {
+    font: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+
+/* ==========================================================
+   FORM ELEMENTS
+========================================================== */
+
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+
+/* ==========================================================
+   SECTIONS
+========================================================== */
+
+section {
+    width: 100%;
+}
