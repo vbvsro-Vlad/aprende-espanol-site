@@ -1,32 +1,40 @@
 /* ==========================================================
    TRAINERS
-   ========================================================== */
+========================================================== */
 
 #trainers {
+
     padding: 120px 0;
 
-    background: #ffffff;
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #f8fbff 100%
+    );
+
 }
 
 
 /* ==========================================================
-   SECTION HEADER
-   ========================================================== */
+   HEADER
+========================================================== */
 
 .trainers-header {
-
-    text-align: center;
 
     max-width: 760px;
 
     margin: 0 auto 70px;
+
+    text-align: center;
+
 }
 
 .trainers-header h2 {
 
-    margin-bottom: 20px;
+    font-size: clamp(2.5rem, 4vw, 3.8rem);
 
-    font-size: clamp(2.3rem, 4vw, 3.5rem);
+    margin-bottom: 22px;
+
 }
 
 .trainers-header p {
@@ -34,12 +42,15 @@
     font-size: 1.15rem;
 
     color: var(--color-text-light);
+
+    line-height: 1.7;
+
 }
 
 
 /* ==========================================================
    GRID
-   ========================================================== */
+========================================================== */
 
 .trainers-grid {
 
@@ -54,19 +65,27 @@
 
 /* ==========================================================
    CARD
-   ========================================================== */
+========================================================== */
 
 .trainer-card {
 
-    background: white;
+    position: relative;
 
-    border-radius: 24px;
+    overflow: hidden;
 
     padding: 40px;
 
-    border: 1px solid rgba(0,0,0,.05);
+    border-radius: 28px;
 
-    box-shadow: 0 12px 35px rgba(15,23,42,.05);
+    background: linear-gradient(
+        145deg,
+        #ffffff,
+        #f8fbff
+    );
+
+    border: 1px solid rgba(37,99,235,.08);
+
+    box-shadow: 0 18px 45px rgba(15,23,42,.05);
 
     transition: .35s ease;
 
@@ -74,55 +93,113 @@
 
 }
 
+.trainer-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 5px;
+
+    background: linear-gradient(
+        90deg,
+        #2563eb,
+        #60a5fa,
+        #f59e0b
+    );
+
+    transform: scaleX(0);
+
+    transform-origin: left;
+
+    transition: .35s;
+
+}
+
 .trainer-card:hover {
 
-    transform: translateY(-8px);
+    transform: translateY(-10px);
 
-    box-shadow: 0 25px 60px rgba(37,99,235,.12);
+    box-shadow:
+        0 30px 70px rgba(37,99,235,.15);
 
     border-color: rgba(37,99,235,.15);
 
 }
 
+.trainer-card:hover::before {
+
+    transform: scaleX(1);
+
+}
+
+
+/* ==========================================================
+   ICON
+========================================================== */
 
 .trainer-icon {
 
-    width: 72px;
-    height: 72px;
+    width: 78px;
+
+    height: 78px;
 
     display: flex;
 
     justify-content: center;
+
     align-items: center;
 
-    border-radius: 18px;
+    margin-bottom: 28px;
 
-    background: rgba(37,99,235,.08);
+    border-radius: 22px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #60a5fa
+    );
+
+    color: white;
 
     font-size: 2rem;
 
-    margin-bottom: 28px;
+    box-shadow:
+        0 15px 30px rgba(37,99,235,.25);
 
 }
 
+
+/* ==========================================================
+   TEXT
+========================================================== */
 
 .trainer-card h3 {
 
+    font-size: 1.7rem;
+
     margin-bottom: 16px;
 
-    font-size: 1.6rem;
-
 }
-
 
 .trainer-card p {
 
-    margin-bottom: 28px;
+    line-height: 1.8;
 
-    line-height: 1.7;
+    margin-bottom: 30px;
+
+    color: var(--color-text-light);
 
 }
 
+
+/* ==========================================================
+   LINK
+========================================================== */
 
 .trainer-link {
 
@@ -132,9 +209,11 @@
 
     gap: 10px;
 
+    font-weight: 700;
+
     color: var(--color-primary);
 
-    font-weight: 700;
+    transition: .3s;
 
 }
 
@@ -147,7 +226,7 @@
 
 /* ==========================================================
    RESPONSIVE
-   ========================================================== */
+========================================================== */
 
 @media (max-width: 900px) {
 
