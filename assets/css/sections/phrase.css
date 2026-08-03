@@ -1,0 +1,99 @@
+/* ==========================================================
+   PHRASE OF THE DAY
+========================================================== */
+
+#phrase {
+
+    padding: 120px 0;
+
+    background: #ffffff;
+
+}
+
+.phrase {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 60px;
+
+    align-items: center;
+
+}
+
+.phrase-content h2 {
+
+    font-size: clamp(2.4rem, 4vw, 3.5rem);
+
+    margin-bottom: 24px;
+
+}
+
+.phrase-content p {
+
+    font-size: 1.15rem;
+
+    color: var(--color-text-light);
+
+    line-height: 1.8;
+
+}
+
+.phrase-card {
+
+    background: linear-gradient(
+        145deg,
+        #ffffff,
+        #f8fbff
+    );
+
+    border-radius: 28px;
+
+    padding: 50px;
+
+    box-shadow: 0 20px 60px rgba(15,23,42,.06);
+
+    border: 1px solid rgba(37,99,235,.08);
+
+}
+
+.phrase-spanish {
+
+    font-size: 2.3rem;
+
+    font-weight: 800;
+
+    color: var(--color-primary);
+
+    margin-bottom: 18px;
+
+}
+
+.phrase-translation {
+
+    font-size: 1.3rem;
+
+    margin-bottom: 32px;
+
+}
+
+.phrase-actions {
+
+    display: flex;
+
+    gap: 16px;
+
+    flex-wrap: wrap;
+
+}
+
+@media (max-width:900px){
+
+    .phrase{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
