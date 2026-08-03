@@ -1,94 +1,128 @@
 /* ==========================================================
-   PHRASE OF THE DAY
+   PHRASE
 ========================================================== */
 
-#phrase {
+#phrase{
 
-    padding: 120px 0;
+    padding:140px 0;
 
-    background: #ffffff;
-
-}
-
-.phrase {
-
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    gap: 60px;
-
-    align-items: center;
-
-}
-
-.phrase-content h2 {
-
-    font-size: clamp(2.4rem, 4vw, 3.5rem);
-
-    margin-bottom: 24px;
-
-}
-
-.phrase-content p {
-
-    font-size: 1.15rem;
-
-    color: var(--color-text-light);
-
-    line-height: 1.8;
-
-}
-
-.phrase-card {
-
-    background: linear-gradient(
-        145deg,
-        #ffffff,
-        #f8fbff
+    background:linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #eef5ff 100%
     );
 
-    border-radius: 28px;
+}
 
-    padding: 50px;
+.phrase{
 
-    box-shadow: 0 20px 60px rgba(15,23,42,.06);
+    display:grid;
 
-    border: 1px solid rgba(37,99,235,.08);
+    grid-template-columns:1fr 1fr;
+
+    gap:90px;
+
+    align-items:center;
 
 }
 
-.phrase-spanish {
+.phrase-content{
 
-    font-size: 2.3rem;
-
-    font-weight: 800;
-
-    color: var(--color-primary);
-
-    margin-bottom: 18px;
+    max-width:600px;
 
 }
 
-.phrase-translation {
+.phrase-content h2{
 
-    font-size: 1.3rem;
+    font-size:clamp(3rem,5vw,4.5rem);
 
-    margin-bottom: 32px;
+    line-height:1.05;
 
-}
-
-.phrase-actions {
-
-    display: flex;
-
-    gap: 16px;
-
-    flex-wrap: wrap;
+    margin:22px 0 28px;
 
 }
 
-@media (max-width:900px){
+.phrase-content p{
+
+    font-size:1.2rem;
+
+    color:#64748b;
+
+    line-height:1.8;
+
+}
+
+.phrase-card{
+
+    position:relative;
+
+    padding:50px;
+
+    border-radius:30px;
+
+    background:white;
+
+    box-shadow:
+        0 25px 70px rgba(37,99,235,.12);
+
+    overflow:hidden;
+
+}
+
+.phrase-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:100%;
+    height:6px;
+
+    background:linear-gradient(
+        90deg,
+        #2563eb,
+        #60a5fa,
+        #f59e0b
+    );
+
+}
+
+.phrase-spanish{
+
+    font-size:2.6rem;
+
+    font-weight:800;
+
+    color:#2563eb;
+
+    margin-bottom:18px;
+
+}
+
+.phrase-translation{
+
+    font-size:1.25rem;
+
+    color:#64748b;
+
+    margin-bottom:34px;
+
+}
+
+.phrase-actions{
+
+    display:flex;
+
+    gap:16px;
+
+    flex-wrap:wrap;
+
+}
+
+@media(max-width:900px){
 
     .phrase{
 
