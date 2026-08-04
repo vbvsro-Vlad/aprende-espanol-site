@@ -1,0 +1,39 @@
+/* ==========================================================
+   ILLUSTRATIONS
+========================================================== */
+
+.hero-illustration{
+
+    width:100%;
+
+    max-width:560px;
+
+    display:block;
+
+    margin:0 auto;
+
+    animation:float 6s ease-in-out infinite;
+
+}
+
+@keyframes float{
+
+    0%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-14px);
+
+    }
+
+    100%{
+
+        transform:translateY(0px);
+
+    }
+
+}
