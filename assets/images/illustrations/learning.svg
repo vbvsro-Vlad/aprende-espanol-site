@@ -1,1 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 800 600"
+     fill="none">
 
+    <defs>
+
+        <linearGradient id="blueGradient" x1="0" y1="0" x2="1" y2="1">
+
+            <stop offset="0%" stop-color="#2563eb"/>
+
+            <stop offset="100%" stop-color="#60a5fa"/>
+
+        </linearGradient>
+
+        <linearGradient id="orangeGradient" x1="0" y1="0" x2="1" y2="1">
+
+            <stop offset="0%" stop-color="#f59e0b"/>
+
+            <stop offset="100%" stop-color="#fbbf24"/>
+
+        </linearGradient>
+
+    </defs>
+
+    <!-- фон -->
+
+    <circle cx="620" cy="140" r="90" fill="#dbeafe"/>
+
+    <circle cx="140" cy="500" r="70" fill="#fef3c7"/>
+
+    <!-- книга -->
+
+    <rect
+        x="170"
+        y="150"
+        width="460"
+        height="280"
+        rx="28"
+        fill="white"
+        stroke="#dbeafe"
+        stroke-width="4"/>
+
+    <line
+        x1="400"
+        y1="150"
+        x2="400"
+        y2="430"
+        stroke="#dbeafe"
+        stroke-width="4"/>
+
+    <!-- ES -->
+
+    <circle
+        cx="300"
+        cy="240"
+        r="45"
+        fill="url(#blueGradient)"/>
+
+    <text
+        x="300"
+        y="252"
+        text-anchor="middle"
+        font-size="28"
+        font-family="Arial"
+        fill="white"
+        font-weight="700">
+
+        ES
+
+    </text>
+
+    <!-- Hola -->
+
+    <rect
+        x="440"
+        y="200"
+        width="120"
+        height="42"
+        rx="18"
+        fill="#eff6ff"/>
+
+    <text
+        x="500"
+        y="227"
+        text-anchor="middle"
+        font-size="20"
+        font-family="Arial"
+        fill="#2563eb">
+
+        Hola
+
+    </text>
+
+    <!-- burbuja -->
+
+    <circle
+        cx="580"
+        cy="120"
+        r="45"
+        fill="url(#orangeGradient)"/>
+
+    <path
+        d="M565 120h30M565 132h22"
+        stroke="white"
+        stroke-width="4"
+        stroke-linecap="round"/>
+
+</svg>
