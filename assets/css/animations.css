@@ -202,3 +202,26 @@ svg {
         opacity .7s ease,
         transform .7s ease;
 }
+/* ==========================================================
+   SCROLL ANIMATIONS
+========================================================== */
+
+.appear {
+
+    opacity: 0;
+
+    transform: translateY(30px);
+
+    transition:
+        opacity .6s ease,
+        transform .6s ease;
+
+}
+
+.appear.visible {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+}
