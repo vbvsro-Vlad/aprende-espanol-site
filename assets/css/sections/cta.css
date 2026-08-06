@@ -61,3 +61,24 @@
     flex-wrap: wrap;
 
 }
+@media (max-width: 768px) {
+
+    .cta-box {
+
+        padding: 60px 24px;
+
+    }
+
+    .cta-box h2 {
+
+        font-size: 2rem;
+
+    }
+
+    .cta-box p {
+
+        font-size: 1rem;
+
+    }
+
+}
