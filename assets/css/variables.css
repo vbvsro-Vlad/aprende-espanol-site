@@ -150,3 +150,6 @@
     --z-modal: 2000;
 
 }
+html {
+    scroll-behavior: smooth;
+}
