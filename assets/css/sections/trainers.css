@@ -237,3 +237,10 @@
     }
 
 }
+@media (max-width: 768px) {
+
+    .trainers-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
