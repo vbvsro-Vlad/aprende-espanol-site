@@ -315,3 +315,22 @@
     }
 
 }
+@media (max-width: 768px) {
+
+    .hero {
+        gap: 40px;
+    }
+
+    .hero-title {
+        font-size: clamp(2.5rem, 11vw, 4rem);
+    }
+
+    .hero-description {
+        font-size: 1.1rem;
+    }
+
+    .hero-card {
+        padding: 30px 24px;
+    }
+
+}
