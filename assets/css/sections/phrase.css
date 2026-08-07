@@ -131,3 +131,10 @@
     }
 
 }
+@media (max-width: 768px) {
+
+    .phrase-card {
+        padding: 30px 24px;
+    }
+
+}
