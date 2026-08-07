@@ -186,3 +186,11 @@ footer {
     }
 
 }
+@media (max-width: 768px) {
+
+    .container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+}
