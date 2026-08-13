@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тренажер: Прошедшее время ⏳</title>
+    <style>
+        
+*{box-sizing:border-box}
+body{font-family:Arial,Helvetica,sans-serif;background:#f7f8fa;margin:0;min-height:100vh;color:#243044;display:flex;justify-content:center;align-items:flex-start;padding:50px 20px}
+.container{background:#fff;width:100%;max-width:680px;padding:42px;border-radius:24px;box-shadow:0 12px 35px rgba(31,41,55,.10);border:1px solid #e8ebf0;text-align:center}
+h2{color:#243044;margin:0 0 12px;font-size:1.8rem;line-height:1.25}
+.badge{display:inline-block;background:#f2b705;color:#fff;padding:5px 11px;border-radius:999px;font-size:.72rem;font-weight:700;text-transform:uppercase;vertical-align:middle}
+.score-board{color:#687386;font-size:1rem;margin:0 0 24px}
+#current-score{color:#d62828;font-weight:700}
+.timer-bar{width:100%;height:7px;background:#e9edf2;border-radius:999px;margin-bottom:26px;overflow:hidden}
+.timer-progress{width:100%;height:100%;background:#d62828;transition:width 1s linear}
+.phrase-display{background:#fff8e6;border-left:5px solid #f2b705;padding:24px 22px;border-radius:14px;font-size:1.35rem;font-weight:600;color:#243044;margin-bottom:22px;min-height:72px;display:flex;align-items:center;justify-content:center}
+input[type=text]{width:100%;padding:16px 18px;border:2px solid #e1e5eb;background:#fff;color:#243044;border-radius:12px;font-size:1.05rem;margin-bottom:14px;outline:none;transition:border-color .2s,box-shadow .2s}
+input[type=text]:focus{border-color:#d62828;box-shadow:0 0 0 4px rgba(214,40,40,.08)}
+button{background:#d62828;color:#fff;border:none;padding:16px 20px;font-size:1.05rem;border-radius:12px;cursor:pointer;width:100%;font-weight:700;transition:transform .2s,background .2s}
+button:hover{background:#b71f1f;transform:translateY(-1px)}
+.feedback{margin-top:20px;font-weight:600;font-size:1rem;min-height:30px;line-height:1.5}
+.correct{color:#16834b}.incorrect{color:#d62828}
+.back-home{display:inline-block;margin-top:24px;color:#687386;text-decoration:none;font-size:.95rem;transition:color .2s}
+.back-home:hover{color:#d62828}
+@media(max-width:600px){body{padding:20px 14px}.container{padding:28px 20px;border-radius:18px}h2{font-size:1.45rem}.phrase-display{font-size:1.15rem;padding:20px 16px}}
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Прошедшее Время <span class="badge">Pasado ⏳</span></h2>
+    <div class="score-board">Серия побед в прошлом: <span id="current-score">0</span> из 15</div>
+    
+    <div class="timer-bar"><div class="timer-progress" id="progress"></div></div>
+    <div class="phrase-display" id="russian-text">Нажмите «СТАРТ ПРОШЛОГО»</div>
+    
+    <input type="text" id="answer-input" placeholder="Введите перевод в прошедшем времени..." autocomplete="off" disabled>
+    <button id="main-btn" onclick="initTrainer()">СТАРТ ПРОШЛОГО</button>
+    
+    <div class="feedback" id="feedback-zone"></div>
+<a href="../index.html" class="back-home">← Вернуться на главную</a>
+
+</div>
+
+<script>
+    const database = [
+        // --- Правила -AR, -ER, -IR ---
+        { ru: "Я поговорил.", es: "He hablado" },
+        { ru: "Ты поучился.", es: "Has estudiado" },
+        { ru: "Он выучил испанский.", es: "Ha aprendido espanol" },
+        { ru: "Я поел пиццу.", es: "He comido pizza" },
+        { ru: "Ты пожил в Мадриде?", es: "Has vivido en Madrid" },
+        { ru: "Он поработал сегодня.", es: "Ha trabajado hoy" },
+        { ru: "Я поучил испанский сегодня.", es: "He aprendido espanol hoy" },
+        { ru: "Ты поел дома?", es: "Has comido en casa" },
+        { ru: "Она пожила в Мадриде.", es: "Ha vivido en Madrid" },
+        // --- Глаголы-исключения ---
+        { ru: "Я сделал это.", es: "Lo he hecho" },
+        { ru: "Он не сделал это.", es: "No lo ha hecho" },
+        { ru: "Ты написал письмо?", es: "Has escrito una carta" },
+        { ru: "Я написал письмо.", es: "He escrito una carta" },
+        { ru: "Ты открыл книгу.", es: "Has abierto un libro" },
+        { ru: "Он открыл дверь.", es: "Ha abierto la puerta" },
+        { ru: "Я не сделал домашнее задание.", es: "No he hecho los deberes" }, // домашнее задание = los deberes
+        { ru: "Ты написал это?", es: "Lo has escrito" },
+        { ru: "Она открыла окно.", es: "Ha abierto la ventana" }
+    ];
+
+    let activePhrase = null;
+    let currentStreak = 0;
+    let stageChecking = false;
+    let timerId = null;
+    let timeLeft = 25; // 25 секунд для комфортного набора прошедшего времени
+
+    const ruDisplay = document.getElementById('russian-text');
+    const inputField = document.getElementById('answer-input');
+    const actionBtn = document.getElementById('main-btn');
+    const feedbackField = document.getElementById('feedback-zone');
+    const streakDisplay = document.getElementById('current-score');
+    const progressBar = document.getElementById('progress');
+
+    function cleanString(str) {
+        return str.toLowerCase()
+            .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()¿?]/g, "")
+            .replace(/[áäà]/g, "a").replace(/[éëè]/g, "e")
+            .replace(/[íïì]/g, "i").replace(/[óöò]/g, "o")
+            .replace(/[úüù]/g, "u").replace(/ñ/g, "n")
+            .trim();
+    }
+
+    function initTrainer() {
+        currentStreak = 0;
+        streakDisplay.innerText = currentStreak;
+        inputField.disabled = false;
+        triggerNext();
+    }
+
+    function startTimer() {
+        clearInterval(timerId);
+        timeLeft = 25;
+        progressBar.style.width = "100%";
+        
+        timerId = setInterval(() => {
+            timeLeft--;
+            progressBar.style.width = (timeLeft / 25 * 100) + "%";
+            
+            if (timeLeft <= 0) {
+                clearInterval(timerId);
+                timeOutFail();
+            }
+        }, 1000);
+    }
+
+    function timeOutFail() {
+        feedbackField.innerHTML = `<span class='incorrect'>⏱️ Время вышло! Надо было: <b>${activePhrase.es}</b></span>`;
+        currentStreak = 0;
+        streakDisplay.innerText = currentStreak;
+        actionBtn.innerText = "Следующая фраза";
+        actionBtn.onclick = triggerNext;
+        stageChecking = false;
+    }
+
+    function triggerNext() {
+        clearInterval(timerId);
+        if (currentStreak >= 15) {
+            ruDisplay.innerText = "🏆 ФАНТАСТИКА! Прошлое время полностью в ваших руках!";
+            inputField.disabled = true;
+            inputField.value = "";
+            progressBar.style.width = "0%";
+            actionBtn.innerText = "Начать сначала";
+            actionBtn.onclick = initTrainer;
+            return;
+        }
+
+        activePhrase = database[Math.floor(Math.random() * database.length)];
+        ruDisplay.innerText = activePhrase.ru;
+        inputField.value = "";
+        feedbackField.innerText = "";
+        inputField.focus();
+
+        actionBtn.innerText = "Проверить";
+        actionBtn.onclick = evaluateAnswer;
+        stageChecking = true;
+        startTimer();
+    }
+
+    function evaluateAnswer() {
+        clearInterval(timerId);
+        const userClean = cleanString(inputField.value);
+        const correctClean = cleanString(activePhrase.es);
+
+        if (userClean === correctClean) {
+            feedbackField.innerHTML = "<span class='correct'>🎯 Идеально в прошлом! +1 балл</span>";
+            currentStreak++;
+            streakDisplay.innerText = currentStreak;
+        } else {
+            feedbackField.innerHTML = `<span class='incorrect'>Ошибка. Правильный вариант: <b>${activePhrase.es}</b></span>`;
+            currentStreak = 0; 
+            streakDisplay.innerText = currentStreak;
+        }
+
+        actionBtn.innerText = "Следующая фраза";
+        actionBtn.onclick = triggerNext;
+        stageChecking = false;
+    }
+
+    inputField.addEventListener("keyup", function(e) {
+        if (e.key === "Enter") {
+            if (stageChecking) evaluateAnswer();
+            else triggerNext();
+        }
+    });
+</script>
+
+</body>
+</html>
