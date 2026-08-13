@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Испанский Мега-Тренажер: ТРИ ВРЕМЕНИ</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f8fa;
+            margin: 0;
+            min-height: 100vh;
+            color: #243044;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 50px 20px;
+        }
+
+        .container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 680px;
+            padding: 42px;
+            border-radius: 24px;
+            box-shadow: 0 12px 35px rgba(31,41,55,.10);
+            border: 1px solid #e8ebf0;
+            text-align: center;
+        }
+
+        h2 { color:#243044; margin:0 0 12px; font-size:1.8rem; line-height:1.25; }
+        .badge { display:inline-block; background:#f2b705; color:#fff; padding:5px 11px; border-radius:999px; font-size:.72rem; font-weight:700; vertical-align:middle; }
+        .score-board { color:#687386; font-size:1rem; margin:0 0 24px; }
+        #current-score { color:#d62828; font-weight:700; }
+        .timer-bar { width:100%; height:7px; background:#e9edf2; border-radius:999px; margin-bottom:26px; overflow:hidden; }
+        .timer-progress { width:100%; height:100%; background:#d62828; transition:width 1s linear; }
+        .phrase-display { background:#fff8e6; border-left:5px solid #f2b705; padding:24px 22px; border-radius:14px; font-size:1.35rem; font-weight:600; color:#243044; margin-bottom:22px; min-height:72px; display:flex; align-items:center; justify-content:center; }
+        input[type="text"] { width:100%; padding:16px 18px; border:2px solid #e1e5eb; background:#fff; color:#243044; border-radius:12px; font-size:1.05rem; margin-bottom:14px; outline:none; transition:border-color .2s,box-shadow .2s; }
+        input[type="text"]:focus { border-color:#d62828; box-shadow:0 0 0 4px rgba(214,40,40,.08); }
+        button { background:#d62828; color:#fff; border:none; padding:16px 20px; font-size:1.05rem; border-radius:12px; cursor:pointer; width:100%; font-weight:700; transition:transform .2s,background .2s; }
+        button:hover { background:#b71f1f; transform:translateY(-1px); }
+        .feedback { margin-top:20px; font-weight:600; font-size:1rem; min-height:30px; line-height:1.5; }
+        .correct { color:#16834b; }
+        .incorrect { color:#d62828; }
+        .back-home { display:inline-block; margin-top:24px; color:#687386; text-decoration:none; font-size:.95rem; }
+        .back-home:hover { color:#d62828; }
+        @media (max-width:600px) { body { padding:20px 14px; } .container { padding:28px 20px; border-radius:18px; } h2 { font-size:1.45rem; } .phrase-display { font-size:1.15rem; padding:20px 16px; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Мега-Тренажер: 3 Времени <span class="badge">ULTRA ⚡</span></h2>
+    <div class="score-board">Абсолютная серия: <span id="current-score">0</span> из 25</div>
+    
+    <div class="timer-bar"><div class="timer-progress" id="progress"></div></div>
+    <div class="phrase-display" id="russian-text">Нажмите «ЗАПУСТИТЬ МАТРИЦУ»</div>
+    
+    <input type="text" id="answer-input" placeholder="Введите перевод фразы..." autocomplete="off" disabled>
+    <button id="main-btn" onclick="initTrainer()">ЗАПУСТИТЬ МАТРИЦУ</button>
+    
+    <div class="feedback" id="feedback-zone"></div>
+</div>
+
+<a class="back-home" href="../index.html">← Вернуться на главную</a>
+
+<script>
+    const database = [
+        // ====== БЛОК 1: НАСТОЯЩЕЕ ВРЕМЯ (База + Разговорные) ======
+        { ru: "Я русский.", es: "Soy ruso" },
+        { ru: "Она русская.", es: "Es rusa" },
+        { ru: "Ты из России?", es: "Eres de Rusia" },
+        { ru: "Я менеджер в офисе.", es: "Soy manager en la oficina" },
+        { ru: "Она умная.", es: "Es inteligente" },
+        { ru: "Я ем пиццу дома.", es: "Como pizza en casa" },
+        { ru: "Ты не пишешь письмо.", es: "No escribes una carta" },
+        { ru: "Он работает дома?", es: "Trabaja en casa" },
+        { ru: "У меня есть машина.", es: "Tengo un coche" },
+        { ru: "Она спешит.", es: "Tiene prisa" },
+        { ru: "Ты хочешь есть?", es: "Tienes hambre" },
+        { ru: "У него нет времени.", es: "No tiene tiempo" },
+        { ru: "Она хочет есть, но она не хочет есть.", es: "Tiene hambre pero no quiere comer" },
+        { ru: "Я спешу и я хочу есть.", es: "Tengo prisa y hambre" },
+        { ru: "Но разве евро — это не наличные?", es: "Pero los euros no son efectivo" },
+
+        // ====== БЛОК 2: БУДУЩЕЕ / ПЛАНЫ (Глаголы-двигатели) ======
+        { ru: "Я хочу говорить по-испански.", es: "Quiero hablar espanol" },
+        { ru: "Ты можешь работать дома?", es: "Puedes trabajar en casa" },
+        { ru: "Я собираюсь учиться сейчас.", es: "Voy a estudiar ahora" },
+        { ru: "Я не хочу есть пиццу.", es: "No quiero comer pizza" },
+        { ru: "Ты собираешься жить в Мадриде?", es: "Vas a vivir en Madrid" },
+        { ru: "Я не могу работать сегодня.", es: "No puedo trabajar hoy" },
+        { ru: "Ты хочешь учиться?", es: "Quieres estudiar" },
+        { ru: "Она хочет говорить по-испански.", es: "Quiere hablar espanol" },
+        { ru: "Он не может работать сегодня.", es: "No puede trabajar hoy" },
+        { ru: "Она собирается есть пиццу.", es: "Va a comer pizza" },
+        // ====== БЛОК 3: ПРОШЕДШЕЕ ВРЕМЯ (Результаты и Состояния) ======
+        { ru: "Я поговорил.", es: "He hablado" },
+        { ru: "Ты поучился.", es: "Has estudiado" },
+        { ru: "Он выучил испанский.", es: "Ha aprendido espanol" },
+        { ru: "Я поел пиццу.", es: "He comido pizza" },
+        { ru: "Ты пожил в Мадриде?", es: "Has vivido en Madrid" },
+        { ru: "Я поучил испанский сегодня.", es: "He aprendido espanol hoy" },
+        { ru: "Я сделал это.", es: "Lo he hecho" },
+        { ru: "Он не сделал это.", es: "No lo ha hecho" },
+        { ru: "Ты написал письмо?", es: "Has escrito una carta" },
+        { ru: "Он открыл дверь.", es: "Ha abierto la puerta" },
+        { ru: "Она хочет есть, но она не хочет есть.", es: "Tiene hambre pero no quiere comer" }, // Наш хит-ловушка!
+        { ru: "Я был готов.", es: "Estaba listo" },
+        { ru: "Я был в Мадриде.", es: "Estaba en Madrid" },
+        { ru: "Я не был уставшим.", es: "No estaba cansado" },
+        { ru: "Я сделал это сегодня.", es: "Lo he hecho hoy" },
+        { ru: "Я не сделал домашнее задание.", es: "No he hecho los deberes" },
+        { ru: "Да, у меня есть евро и я могу заплатить без карты.", es: "Si tengo los euros y puedo pagar sin tarjeta" },
+        { ru: "Думаю, что практиковать диалоги с тобой проще.", es: "Creo que es mas facil practicar los dialogos contigo" },
+        { ru: "Я не хочу сказать просто, я хочу сказать проще.", es: "No quiero decir simple quiero decir mas simple" },
+        { ru: "Ты можешь создать тренажер?", es: "Puedes crear un simulador" }
+    ];
+
+    let activePhrase = null;
+    let currentStreak = 0;
+    let stageChecking = false;
+    let timerId = null;
+    let timeLeft = 30;
+
+    const ruDisplay = document.getElementById('russian-text');
+    const inputField = document.getElementById('answer-input');
+    const actionBtn = document.getElementById('main-btn');
+    const feedbackField = document.getElementById('feedback-zone');
+    const streakDisplay = document.getElementById('current-score');
+    const progressBar = document.getElementById('progress');
+
+    function cleanString(str) {
+        return str.toLowerCase()
+            .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()¿?]/g, "")
+            .replace(/[áäà]/g, "a").replace(/[éëè]/g, "e")
+            .replace(/[íïì]/g, "i").replace(/[óöò]/g, "o")
+            .replace(/[úüù]/g, "u").replace(/ñ/g, "n")
+            .trim();
+    }
+
+    function initTrainer() {
+        currentStreak = 0;
+        streakDisplay.innerText = currentStreak;
+        inputField.disabled = false;
+        triggerNext();
+    }
+
+    function startTimer() {
+        clearInterval(timerId);
+        timeLeft = 30;
+        progressBar.style.width = "100%";
+        
+        timerId = setInterval(() => {
+            timeLeft--;
+            progressBar.style.width = (timeLeft / 30 * 100) + "%";
+            
+            if (timeLeft <= 0) {
+                clearInterval(timerId);
+                timeOutFail();
+            }
+        }, 1000);
+    }
+
+    function timeOutFail() {
+        feedbackField.innerHTML = `<span class='incorrect'>⏱️ Время вышло! Правильно: <b>${activePhrase.es}</b></span>`;
+        currentStreak = 0;
+        streakDisplay.innerText = currentStreak;
+        actionBtn.innerText = "Следующая фраза";
+        actionBtn.onclick = triggerNext;
+        stageChecking = false;
+    }
+
+    function triggerNext() {
+        clearInterval(timerId);
+        if (currentStreak >= 25) {
+            ruDisplay.innerText = "🏆 ВЫ СДЕЛАЛИ ЭТО! ВСЕ ТРИ ВРЕМЕНИ ВАМ ПОДЧИНЕНЫ!";
+            inputField.disabled = true;
+            inputField.value = "";
+            progressBar.style.width = "0%";
+            actionBtn.innerText = "Запустить Матрицу заново";
+            actionBtn.onclick = initTrainer;
+            return;
+        }
+
+        activePhrase = database[Math.floor(Math.random() * database.length)];
+        ruDisplay.innerText = activePhrase.ru;
+        inputField.value = "";
+        feedbackField.innerText = "";
+        inputField.focus();
+
+        actionBtn.innerText = "Проверить";
+        actionBtn.onclick = evaluateAnswer;
+        stageChecking = true;
+        startTimer();
+    }
+
+    function evaluateAnswer() {
+        clearInterval(timerId);
+        const userClean = cleanString(inputField.value);
+        const correctClean = cleanString(activePhrase.es);
+
+        if (userClean === correctClean || correctClean.includes(userClean) && userClean.length > 6) {
+            feedbackField.innerHTML = "<span class='correct'>🎯 Идеально! Идем дальше.</span>";
+            currentStreak++;
+            streakDisplay.innerText = currentStreak;
+        } else {
+            feedbackField.innerHTML = `<span class='incorrect'>Ошибка. Правильный вариант: <b>${activePhrase.es}</b></span>`;
+            currentStreak = 0; 
+            streakDisplay.innerText = currentStreak;
+        }
+
+        actionBtn.innerText = "Следующая фраза";
+        actionBtn.onclick = triggerNext;
+        stageChecking = false;
+    }
+
+    inputField.addEventListener("keyup", function(e) {
+        if (e.key === "Enter") {
+            if (stageChecking) evaluateAnswer();
+            else triggerNext();
+        }
+    });
+</script>
+
+</body>
+</html>
