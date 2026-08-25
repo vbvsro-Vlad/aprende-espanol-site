@@ -244,3 +244,24 @@
     }
 
 }
+/* ==========================================================
+   LISTENING — CENTER
+========================================================== */
+
+#listening .listening-card {
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#listening .section-header {
+    text-align: center;
+}
+
+#listening .listening-parts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
