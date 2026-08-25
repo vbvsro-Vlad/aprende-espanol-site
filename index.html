@@ -191,7 +191,7 @@
             </div>
 
 
-           <!-- Правая колонка -->
+          <!-- Правая колонка -->
 <div class="hero-image appear">
     <div class="hero-card">
         <h3>💬 Фраза дня</h3>
@@ -227,7 +227,83 @@
     </div>
 </div>
 
+    </div>
+</section>
+
 <script>
+    // Массив из 15 убойных бытовых фраз из подкаста Пабло и Люсии
+    const dailyPhrasesDB = [
+        { es: "¡Vamos alla!", ru: "Погнали! / Вперёд! / Поехали!" },
+        { es: "¡Dime!", ru: "Да, слушаю тебя! / Скажи мне!" },
+        { es: "¿En serio?", ru: "Серьёзно? / Да ладно?" },
+        { es: "¡Eso me parece magia!", ru: "Это кажется мне магией!" },
+        { es: "Exactamente lo contrario.", ru: "Прямая противоположность / Всё с точностью до наоборот." },
+        { es: "Cada dia sin excepcion.", ru: "Каждый день без исключения." },
+        { es: "Prefiero no decirlo.", ru: "Я предпочитаю об этом не говорить / Лучше промолчу." },
+        { es: "Aun asi me cuesta.", ru: "И всё равно мне это тяжело даётся." },
+        { es: "Es completamente verdad.", ru: "Это чистая правда." },
+        { es: "¡Salgo corriendo!", ru: "Я убегаю! / Выбегаю со всех ног!" },
+        { es: "El dia empieza mal.", ru: "День начинается паршиво." },
+        { es: "¡Tan importante es!", ru: "Неужели это настолько важно?!" },
+        { es: "Ya me las arreglo.", ru: "Я как-нибудь сам выкручусь / разберусь." },
+        { es: "¿Y luego que?", ru: "Ну а потом что? / И что дальше?" },
+        { es: "Un pequeno lujo de la vida diaria.", ru: "Маленькая роскошь повседневной жизни." }
+    ];
+
+    let currentDailyPhrase = null;
+    let isTranslationVisible = false;
+
+    // Выбор случайной фразы при загрузке
+    function initDailyPhrase() {
+        const randomIndex = Math.floor(Math.random() * dailyPhrasesDB.length);
+        currentDailyPhrase = dailyPhrasesDB[randomIndex];
+        document.getElementById('daily-es-text').innerText = currentDailyPhrase.es;
+        
+        const ruBox = document.getElementById('daily-ru-text');
+        ruBox.innerText = "";
+        ruBox.style.display = "none";
+        
+        document.getElementById('daily-toggle-btn').innerText = "👁️ Показать перевод";
+        isTranslationVisible = false;
+    }
+
+    // Показать/Скрыть перевод
+    function toggleDailyTranslation() {
+        const ruBox = document.getElementById('daily-ru-text');
+        const btn = document.getElementById('daily-toggle-btn');
+        if (!isTranslationVisible) {
+            ruBox.innerText = currentDailyPhrase.ru;
+            ruBox.style.display = "block";
+            btn.innerText = "🙈 Скрыть перевод";
+            isTranslationVisible = true;
+        } else {
+            ruBox.style.display = "none";
+            btn.innerText = "👁️ Показать перевод";
+            isTranslationVisible = false;
+        }
+    }
+
+    // Встроенная аудио-озвучка
+    function playDailyPhrase() {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(currentDailyPhrase.es);
+            utterance.lang = 'es-ES';
+            utterance.rate = 0.9;
+            const voices = window.speechSynthesis.getVoices();
+            const esVoice = voices.find(v => v.lang.includes('es'));
+            if (esVoice) utterance.voice = esVoice;
+            window.speechSynthesis.speak(utterance);
+        }
+    }
+
+    // Запуск генерации при открытии страницы
+    window.addEventListener('DOMContentLoaded', initDailyPhrase);
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
+    }
+</script>
+
 
 <!-- ==========================================================
      TRAINERS
