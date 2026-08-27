@@ -334,3 +334,56 @@
     }
 
 }
+/* ==========================================================
+   DAILY PHRASE — BUTTONS
+========================================================== */
+
+.daily-phrase-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+
+.daily-phrase-btn {
+    border: none;
+    padding: 11px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.daily-phrase-btn-primary {
+    background: #d62828;
+    color: #ffffff;
+}
+
+.daily-phrase-btn-primary:hover {
+    background: #b71f1f;
+    transform: translateY(-1px);
+}
+
+.daily-phrase-btn-secondary {
+    background: #f2b705;
+    color: #ffffff;
+}
+
+.daily-phrase-btn-secondary:hover {
+    background: #d99f00;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+    .daily-phrase-actions {
+        flex-direction: column;
+    }
+
+    .daily-phrase-btn {
+        width: 100%;
+        max-width: 260px;
+    }
+}
