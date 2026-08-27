@@ -192,25 +192,39 @@
 
 
           <!-- Правая колонка -->
-<div class="hero-image appear">
-    <div class="hero-card">
-        <h3>💬 Фраза дня</h3>
+           <div class="hero-image appear">
+                <div class="hero-card">
+                    <h3>💬 Фраза дня</h3>
 
-        <!-- Сюда JS будет подставлять случайную испанскую фразу -->
-        <p class="hero-spanish" id="daily-es-text">
+             <!-- Сюда JS будет подставлять случайную испанскую фразу -->
+                  <p class="hero-spanish" id="daily-es-text">
+                    ...
+                  </p>
+
+            <!-- Сюда JS будет подставлять русский перевод при клике -->
+                 <p class="hero-translation" id="daily-ru-text" style="display: none; transition: all 0.3s ease;">
             ...
-        </p>
+                 </p>
 
-        <!-- Сюда JS будет подставлять русский перевод при клике -->
-        <p class="hero-translation" id="daily-ru-text" style="display: none; transition: all 0.3s ease;">
-            ...
-        </p>
+           <!-- Интерактивные кнопки управления -->
+               <div class="daily-phrase-actions">
 
-        <!-- Интерактивные кнопки управления -->
-        <div style="display: flex; gap: 10px; justify-content: center; margin: 15px 0;">
-            <button onclick="playDailyPhrase()" style="background: #233554; color: white; border: 1px solid #3b5998; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9rem; transition: background 0.2s;">🔊 Послушать</button>
-            <button onclick="toggleDailyTranslation()" id="daily-toggle-btn" style="background: #9b59b6; color: white; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.9rem; transition: background 0.2s;">👁️ Показать перевод</button>
-        </div>
+                 <button
+                    onclick="playDailyPhrase()"
+                     class="daily-phrase-btn daily-phrase-btn-primary"
+                 >
+                  🔊 Послушать
+                </button>
+
+                <button
+                    onclick="toggleDailyTranslation()"
+                     id="daily-toggle-btn"
+                     class="daily-phrase-btn daily-phrase-btn-secondary"
+                >
+                    👁️ Показать перевод
+              </button>
+
+           </div>
 
         <img
             src="assets/images/illustrations/learning.svg"
