@@ -39,7 +39,25 @@ function initApp() {
  */
 
 function initNavigation() {
-    // Будет реализовано позже
+
+    const menuToggle = document.querySelector(".menu-toggle");
+    const nav = document.querySelector(".main-nav");
+
+    if (!menuToggle || !nav) return;
+
+    menuToggle.addEventListener("click", () => {
+        nav.classList.toggle("active");
+        menuToggle.classList.toggle("active");
+    });
+
+    const navLinks = nav.querySelectorAll("a");
+
+    navLinks.forEach(link => {
+        link.addEventListener("click", () => {
+            nav.classList.remove("active");
+            menuToggle.classList.remove("active");
+        });
+    });
 }
 
 /**
