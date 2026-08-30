@@ -41,7 +41,7 @@ function initApp() {
 function initNavigation() {
 
     const menuToggle = document.querySelector(".menu-toggle");
-    const nav = document.querySelector(".main-nav");
+    const nav = document.querySelector(".nav");
 
     if (!menuToggle || !nav) return;
 
