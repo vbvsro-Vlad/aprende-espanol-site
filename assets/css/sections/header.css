@@ -156,6 +156,12 @@
         gap: 15px;
     }
 
+    .nav-list {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
 }
 
 
@@ -178,7 +184,7 @@
 
     }
 
-    .btn {
+    .btn-primary-header {
 
         display: none;
 
@@ -225,5 +231,64 @@
 
     .menu-toggle.active span:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
+    }
+}
+
+/* ==========================================================
+   MOBILE TRAINERS SECTION
+========================================================== */
+
+.mobile-trainers {
+    display: none;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(37,99,235,.15);
+}
+
+.mobile-trainers h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 12px;
+}
+
+.mobile-trainers-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-trainers-list li {
+    margin-bottom: 8px;
+}
+
+.mobile-trainers-list a {
+    display: block;
+    padding: 10px 14px;
+    background: rgba(37,99,235,.05);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.mobile-trainers-list a:hover {
+    background: rgba(37,99,235,.15);
+    color: var(--color-primary);
+}
+
+.mobile-audio-link {
+    background: linear-gradient(135deg, rgba(245,158,11,.1), rgba(245,158,11,.2)) !important;
+}
+
+.mobile-audio-link:hover {
+    background: linear-gradient(135deg, rgba(245,158,11,.2), rgba(245,158,11,.3)) !important;
+}
+
+@media (max-width: 992px) {
+    .mobile-trainers {
+        display: block;
     }
 }
