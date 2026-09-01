@@ -3,31 +3,25 @@
 ========================================================== */
 
 .beginner-banner {
-    max-width: var(--container-width);
-    margin: 0 auto var(--space-5) auto;
-    padding: 0 var(--container-padding);
+    width: 100%;
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #eef5ff 100%
+    );
+    padding: var(--space-5) 0;
+    margin-bottom: var(--space-5);
     box-sizing: border-box;
 }
 
 .beginner-banner-inner {
-    background: linear-gradient(
-        135deg,
-        rgba(16, 185, 129, 0.03) 0%,
-        rgba(59, 130, 246, 0.03) 100%
-    );
-    border: 1px solid rgba(16, 185, 129, 0.2);
-    border-left: 5px solid var(--color-success);
-    border-radius: var(--radius-md);
-    padding: var(--space-4) var(--space-5);
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: var(--space-3);
-    transition: transform var(--transition-fast);
-}
-
-.beginner-banner-inner:hover {
-    transform: translateY(-3px);
 }
 
 .beginner-banner-content {
@@ -37,29 +31,31 @@
 
 .beginner-banner-badge {
     display: inline-block;
-    background-color: rgba(16, 185, 129, 0.1);
-    color: var(--color-success);
+    background-color: rgba(37, 99, 235, 0.1);
+    color: var(--color-primary);
     border-radius: 20px;
-    padding: 4px 12px;
-    font-size: var(--font-size-xs);
+    padding: 6px 14px;
+    font-size: var(--font-size-sm);
     font-weight: var(--font-weight-bold);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .beginner-banner-title {
-    margin: 0 0 8px 0;
+    margin: 0 0 12px 0;
     color: var(--color-text);
-    font-size: 1.35rem;
-    font-weight: var(--font-weight-bold);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: var(--font-weight-extra-bold);
+    letter-spacing: -1px;
+    line-height: 1.1;
 }
 
 .beginner-banner-description {
     margin: 0;
     color: var(--color-text-light);
-    font-size: 0.95rem;
-    line-height: 1.5;
+    font-size: 1.28rem;
+    line-height: 1.8;
 }
 
 .beginner-banner-actions {
@@ -71,28 +67,29 @@
 }
 
 .beginner-banner-time {
-    font-size: 0.85rem;
+    font-size: var(--font-size-md);
     color: var(--color-text-light);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-weight: var(--font-weight-medium);
 }
 
 .beginner-banner-btn {
     display: inline-block;
     width: 100%;
-    padding: 12px 24px;
+    padding: 14px 28px;
     text-decoration: none;
     text-align: center;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     font-weight: var(--font-weight-bold);
     transition: var(--transition-fast);
     box-sizing: border-box;
-    background: var(--color-success);
+    background: linear-gradient(135deg, #2563eb, #4f8df7);
     color: white;
+    font-size: var(--font-size-md);
 }
 
 .beginner-banner-btn:hover {
-    background: #059669;
+    background: linear-gradient(135deg, #1d4ed8, #3b82f6);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
