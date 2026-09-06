@@ -401,6 +401,8 @@
 
         if (!hasErrors && rawUserWords.length === correctWords.length) {
             feedbackZone.innerHTML = "<span style='color: #10ac84; font-weight: bold;'>🎯 Великолепно! Ни одной ошибки. Идём дальше!</span>";
+            // СБРОС СЮДА: Возвращаем стандартный плейсхолдер при успехе фраз!
+            userInput.placeholder = "Вводите то, что услышали...";
             currentStep++;
             mainBtn.innerText = "Следующая фраза ▶";
             mainBtn.onclick = triggerStep;
