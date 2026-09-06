@@ -163,3 +163,213 @@
 </div>
 
 <script>
+    // БАЗА ДАННЫХ ДЛЯ САМЫХ НУЛЕВЫХ: ЛАЙФХАКИ "ДО" ЗВУКА, ТАЙМИНГИ И ФРАЗЫ
+    const database = new Array(
+        {
+            speaker: "Пабло",
+            roleClass: "role-pablo",
+            start: 0,
+            end: 1.37,
+            es: "Hola Que pasa",
+            ru: "Привет! Как жизнь? / Что происходит?",
+            preHint: "🔑 В испанском языке буква <b>H</b> — абсолютно немая, она не читается вообще! А сленговый вопрос <b>¿Qué pasa?</b> слышится как [кэ паса], но пишется с обычной буквой <b>s</b>."
+        },
+        {
+            speaker: "Люсия",
+            roleClass: "role-lucia",
+            start: 1.37,
+            end: 2.52,
+            es: "Vamos tarde",
+            ru: "Мы опаздываем!",
+            preHint: "🔑 Главная ловушка: буквы <b>V</b> и <b>B</b> в испанском звучат на 100% одинаково (как русская Б)! Чистого звука 'В' в речи нет. Вы услышите [Бамос тарде], но писать надо строго через <b>V</b> — <i>Vamos</i>!"
+        },
+        {
+            speaker: "Пабло",
+            roleClass: "role-pablo",
+            start: 2.52,
+            end: 4.47,
+            es: "En serio Que hora es",
+            ru: "Серьёзно? Который час?",
+            preHint: "🔑 Буква <b>S</b> в слове <i>serio</i> даёт обычный звук [С]. А в вопросе про время <b>¿Qué hora es?</b> снова прячется немая буква <b>H</b> в слове <i>hora</i> (час). Не забудьте её написать!"
+        },
+        {
+            speaker: "Люсия",
+            roleClass: "role-lucia",
+            start: 4.47,
+            end: 6.97,
+            es: "Son las ocho Salgo corriendo",
+            ru: "Уже восемь. Я убегаю со всех ног!",
+            preHint: "🔑 Вы услышите [Сон лас очо]. Чётко пишите слово <b>ocho</b> (восемь). Во второй части Люсия скажет <b>Salgo corriendo</b> — буква <b>S</b> на конце слышится слабо, но на письме она обязательна."
+        },
+        {
+            speaker: "Пабло",
+            roleClass: "role-pablo",
+            start: 6.97,
+            end: 9.50,
+            es: "Madre mia Hasta luego",
+            ru: "Мама дорогая! До встречи!",
+            preHint: "🔑 Эмоциональный хит <b>¡Madre mía!</b> пишется просто. А в прощании <b>Hasta luego</b> (до встречи) на первом месте снова стоит классическая немая буква <b>H</b>!"
+        }
+    );
+
+    let currentStep = 0;
+    let isCheckingStage = false;
+    let checkInterval = null;
+
+    const player = document.getElementById('player');
+    const userInput = document.getElementById('user-input');
+    const mainBtn = document.getElementById('main-btn');
+    const giveUpBtn = document.getElementById('giveup-btn');
+    const feedbackZone = document.getElementById('feedback-zone');
+    const preHintText = document.getElementById('pre-hint-text');
+    const stepLabel = document.getElementById('step-label');
+    const roleContainer = document.getElementById('role-tag-container');
+    const userVisualFeedback = document.getElementById('user-visual-feedback');
+    const audioTriggerBtn = document.getElementById('audio-trigger-btn');
+
+    // Настраиваем корректный относительный путь к вашей папке assets локально
+    player.src = "../assets/audio/intro.mp3";
+
+    function cleanString(str) {
+        return str.toLowerCase()
+            .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()¿?]/g, "")
+            .replace(/[áäà]/g, "a").replace(/[éëè]/g, "e")
+            .replace(/[íïì]/g, "i").replace(/[óöò]/g, "o")
+            .replace(/[úüù]/g, "u").replace(/ñ/g, "n")
+            .replace(/\s+/g, " ")
+            .trim();
+    }
+
+    function initTrainer() {
+        currentStep = 0;
+        userInput.disabled = false;
+        audioTriggerBtn.disabled = false;
+        triggerStep();
+    }
+
+    function triggerStep() {
+        clearInterval(checkInterval);
+        if (currentStep >= database.length) {
+            stepLabel.innerText = "ФИНИШ";
+            roleContainer.innerHTML = "";
+            preHintText.innerHTML = "🏆 Поздравляем! Базовые ловушки чтения успешно освоены!";
+            userVisualFeedback.innerText = "¡Todo marcha bien!";
+            userInput.disabled = true;
+            userInput.value = "";
+            feedbackZone.innerText = "";
+            giveUpBtn.style.display = "none";
+            audioTriggerBtn.disabled = true;
+            
+            mainBtn.innerText = "Пройти уровень заново 🔄";
+            mainBtn.onclick = initTrainer;
+            isCheckingStage = false;
+            return;
+        }
+
+        stepLabel.innerText = 'Реплика ' + (currentStep + 1) + ' из ' + database.length;
+        
+        const currentData = database[currentStep];
+        
+        // ФАЗА 1: Сначала выводим секретный ключ ДО звука
+        preHintText.innerHTML = currentData.preHint;
+        
+        roleContainer.innerHTML = '<span class="role-tag ' + currentData.roleClass + '">🗣️ Говорит: ' + currentData.speaker + '</span>';
+        userVisualFeedback.innerHTML = "<span style='color:#84817a;'>Ждём ваш ввод...</span>";
+        
+        feedbackZone.innerText = "";
+        userInput.value = "";
+        userInput.focus();
+        giveUpBtn.style.display = "block";
+
+        mainBtn.innerText = "Проверить фразу";
+        mainBtn.onclick = evaluateText;
+        isCheckingStage = true;
+
+        playCurrentSegment();
+    }
+
+    function playCurrentSegment() {
+        clearInterval(checkInterval);
+        if (currentStep >= database.length) return;
+        
+        const segment = database[currentStep];
+        player.currentTime = segment.start;
+        player.play();
+
+        checkInterval = setInterval(function() {
+            if (player.currentTime >= segment.end) {
+                player.pause();
+                clearInterval(checkInterval);
+            }
+        }, 50);
+    }
+
+    function evaluateText() {
+        clearInterval(checkInterval);
+        player.pause();
+
+        const rawUserWords = userInput.value.trim().split(/\s+/);
+        const correctClean = cleanString(database[currentStep].es);
+        const correctWords = correctClean.split(" ");
+        
+        let visualResult = new Array();
+        let hasErrors = false;
+
+        // УМНЫЙ АЛГОРИТМ ПОСЛОВНОГО СРАВНЕНИЯ СТРОК
+        for (let i = 0; i < correctWords.length; i++) {
+            const userWordRaw = rawUserWords[i];
+            
+            if (!userWordRaw) {
+                // Если пользователь не дописал слова до конца фразы
+                visualResult.push("<span class='missing-word'>[?]</span>");
+                hasErrors = true;
+            } else {
+                const userWordClean = cleanString(userWordRaw);
+                if (userWordClean === correctWords[i]) {
+                    // Слово совпало идеально
+                    visualResult.push(rawUserWords[i]);
+                } else {
+                    // Подсвечиваем конкретное слово красным цветом
+                    visualResult.push("<span class='error-word'>" + rawUserWords[i] + "</span>");
+                    hasErrors = true;
+                }
+            }
+        }
+
+        userVisualFeedback.innerHTML = visualResult.join(" ");
+
+        if (!hasErrors && rawUserWords.length === correctWords.length) {
+            feedbackZone.innerHTML = "<span style='color: #10ac84; font-weight: bold;'>🎯 Отлично! Фраза написана абсолютно верно!</span>";
+            currentStep++;
+            mainBtn.innerText = "Следующая фраза ▶";
+            mainBtn.onclick = triggerStep;
+            giveUpBtn.style.display = "none";
+            isCheckingStage = false;
+        } else {
+            feedbackZone.innerHTML = '<span style="color: #ee5253; font-weight: bold;">⚠️ Найдена ошибка в буквах. Подсказка перевода: "' + database[currentStep].ru + '". Переслушайте и исправьте выделенное!</span>';
+        }
+    }
+
+    function showCorrectAnswer() {
+        clearInterval(checkInterval);
+        player.pause();
+        
+        userVisualFeedback.innerHTML = database[currentStep].es;
+        feedbackZone.innerHTML = '<span style="color: #ff9f43; font-weight: bold;">Показан оригинал фразы. Перевод: "' + database[currentStep].ru + '"</span>';
+        
+        currentStep++;
+        mainBtn.innerText = "Продолжить уровень";
+        mainBtn.onclick = triggerStep;
+        giveUpBtn.style.display = "none";
+        isCheckingStage = false;
+    }
+
+    userInput.addEventListener("keyup", function(e) {
+        if (e.key === "Enter") {
+            if (isCheckingStage) evaluateText();
+            else triggerStep();
+        }
+    });
+</script>
+</body>
+</html>
