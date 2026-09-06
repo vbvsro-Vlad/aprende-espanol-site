@@ -406,18 +406,23 @@
             giveUpBtn.style.display = "none";
             isCheckingStage = false;
         } else {
-            // Формируем блок разбора ошибок снизу
+    // НАЧАЛО ОБНОВЛЕНИЯ: Очищаем поле и ставим исчезающий placeholder
+             userInput.value = ""; 
+             userInput.placeholder = "Попробуй ввести еще раз...";
+    // КОНЕЦ ОБНОВЛЕНИЯ
+
+    // Формируем блок разбора ошибок снизу
             let explanationHTML = '<span style="color: #ee5253; font-weight: bold;">⚠️ Кое-где слух подвёл. Разбор ваших ловушек:</span>';
-            
+
             if (errorExplanations.length > 0) {
-                // Выводим только те правила, в которых человек реально ошибся!
-                explanationHTML += errorExplanations.join("");
-            } else {
-                explanationHTML += "<div class='explanation-card'><b>Подсказка перевода:</b> \"" + database[currentStep].ru + "\". Возможно, вы написали лишние слова в конце фразы. Переслушайте ещё раз!</div>";
-            }
-            
+            explanationHTML += errorExplanations.join("");
+           } else {
+                 explanationHTML += "<div class='explanation-card'><b>Подсказка перевода:</b> \"" + database[currentStep].ru + "\". Возможно, вы написали лишние слова в конце фразы. Переслушайте ещё раз!</div>";
+           }
+
             feedbackZone.innerHTML = explanationHTML;
         }
+
     }
 
     function showCorrectAnswer() {
