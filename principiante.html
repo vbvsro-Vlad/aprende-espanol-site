@@ -1,512 +1,744 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
+    <!-- ===========================
+         Основные настройки
+    ============================ -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Испанский для начинающих | Principiante</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/sections/beginner-banner.css">
+
+    <!-- ===========================
+         SEO
+    ============================ -->
+    <title>Сленговая разминка — Быстрый старт для новичков | Aprende Español</title>
+
+    <meta name="description"
+        content="Быстрый старт для новичков! Короткие пулемётные фразы из Мадрида, разбор базовой логики слов и интерактивные упражнения. Начни изучать испанский с нуля за 5 минут.">
+
+    <meta name="keywords"
+        content="испанский для начинающих, испанский с нуля, сленговая разминка, aprende español, beginner spanish">
+
+    <meta name="author" content="Aprende Español">
+
+    <!-- ===========================
+         Open Graph
+    ============================ -->
+    <meta property="og:title" content="Сленговая разминка — Быстрый старт">
+    <meta property="og:description"
+        content="Страшно начинать со сложного подкаста? Начни отсюда! Короткие пулемётные фразы из Мадрида.">
+    <meta property="og:type" content="website">
+
+    <!-- ===========================
+         Favicon
+    ============================ -->
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+
+    <!-- ===========================
+         Шрифты
+    ============================ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- ===========================
+         Стили
+    ============================ -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-            margin: 0;
-            padding: 0;
+        /* ==========================================================
+           BEGINNER PAGE SPECIFIC STYLES
+        ========================================================== */
+
+        .beginner-page {
             min-height: 100vh;
+            background: linear-gradient(180deg, #ffffff 0%, #f0f7ff 100%);
+            padding: 80px 20px 40px;
         }
 
-        .container {
-            max-width: 1200px;
+        .beginner-container {
+            max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
         }
 
-        header {
+        .beginner-header {
             text-align: center;
-            padding: 40px 0;
+            margin-bottom: 40px;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        .beginner-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f2b705, #ffd93d);
+            color: #ffffff;
+            padding: 8px 20px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 15px rgba(242, 183, 5, 0.3);
         }
 
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
+        .beginner-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            color: var(--color-text);
+            margin: 0 0 16px;
+            line-height: 1.1;
+            letter-spacing: -1px;
         }
 
-        .content-section {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px 0;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        .beginner-title span {
+            color: var(--color-primary);
         }
 
-        .phrase-block {
-            margin: 20px 0;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 10px;
-            transition: transform 0.3s ease;
+        .beginner-description {
+            font-size: 1.15rem;
+            color: var(--color-text-light);
+            line-height: 1.8;
+            max-width: 650px;
+            margin: 0 auto 30px;
         }
 
-        .phrase-block:hover {
-            transform: translateY(-5px);
+        .beginner-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-icon {
+            font-size: 1.5rem;
+        }
+
+        .stat-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .beginner-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 12px 40px rgba(31, 41, 55, 0.10);
+            border: 1px solid #e8ebf0;
+            margin-bottom: 30px;
+        }
+
+        .phrase-section {
+            margin-bottom: 35px;
+        }
+
+        .phrase-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .phrase-section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--color-text);
+            margin: 0 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .phrase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .phrase-card {
+            background: linear-gradient(135deg, #fff8e6 0%, #ffffff 100%);
+            border-left: 4px solid #f2b705;
+            border-radius: 12px;
+            padding: 18px 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .phrase-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(242, 183, 5, 0.2);
         }
 
         .phrase-es {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #FFD700;
-            margin-bottom: 10px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #243044;
+            margin-bottom: 8px;
         }
 
         .phrase-ru {
+            font-size: 0.95rem;
+            color: #687386;
+            line-height: 1.5;
+        }
+
+        .phrase-audio-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--color-primary);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .phrase-audio-btn:hover {
+            background: rgba(37, 99, 235, 0.2);
+        }
+
+        .trainer-zone {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #2563eb 0%, #4f8df7 100%);
+            border-radius: 20px;
+            color: white;
+            margin-top: 40px;
+        }
+
+        .trainer-zone h3 {
+            font-size: 1.6rem;
+            margin: 0 0 15px;
+        }
+
+        .trainer-zone p {
             font-size: 1.1rem;
-            opacity: 0.9;
-            margin-bottom: 15px;
+            opacity: 0.95;
+            margin: 0 0 25px;
         }
 
-        .audio-btn {
-            background: linear-gradient(45deg, #FF6B6B, #FF8E8E);
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1rem;
+        .btn-large {
+            display: inline-block;
+            padding: 16px 40px;
+            background: white;
+            color: var(--color-primary);
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .audio-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
-        }
-
-        .audio-btn:active {
-            transform: scale(0.95);
-        }
-
-        .trainer-section {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px 0;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-        }
-
-        .question-card {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 25px;
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .option-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .option-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .option-btn.correct {
-            background: #4CAF50;
-            border-color: #4CAF50;
-        }
-
-        .option-btn.wrong {
-            background: #f44336;
-            border-color: #f44336;
-        }
-
-        .timer {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #FFD700;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .result-card {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .score {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #FFD700;
-            margin: 20px 0;
-        }
-
-        .restart-btn {
-            background: linear-gradient(45deg, #4CAF50, #45a049);
-            border: none;
-            color: white;
-            padding: 15px 40px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
-            margin-top: 20px;
-        }
-
-        .restart-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+        .btn-large:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
         }
 
         .back-link {
-            display: inline-block;
-            margin-top: 30px;
-            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+            font-weight: 500;
             text-decoration: none;
-            padding: 10px 20px;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            border-radius: 25px;
-            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            transition: color 0.2s ease;
         }
 
         .back-link:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+            color: var(--color-primary);
         }
 
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
+            .beginner-page {
+                padding: 70px 15px 30px;
             }
-            
-            .phrase-es {
-                font-size: 1.3rem;
+
+            .beginner-card {
+                padding: 25px 20px;
             }
-            
-            .options-grid {
+
+            .phrase-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .beginner-stats {
+                gap: 15px;
+            }
+
+            .stat-item {
+                padding: 10px 15px;
             }
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <header>
-            <h1>🇪🇸 Испанский для начинающих</h1>
-            <p class="subtitle">Часть 0: Сленговая разминка</p>
-        </header>
 
-        <section class="content-section">
-            <h2>📚 Полезные фразы</h2>
-            
-            <div class="phrase-block">
-                <div class="phrase-es">¡Hola! ¿Qué tal?</div>
-                <div class="phrase-ru">Привет! Как дела?</div>
-                <button class="audio-btn" onclick="speakPhrase('¡Hola! ¿Qué tal?')">🔊 Произнести</button>
+    <!-- ==========================================================
+         HEADER
+    =========================================================== -->
+
+    <header id="header">
+        <div class="container">
+            <div class="header">
+                <!-- Logo -->
+                <a href="../index.html" class="logo">
+                    <span class="logo-icon">🇪🇸</span>
+                    <div class="logo-text">
+                        <span class="logo-title">Aprende Español</span>
+                        <span class="logo-subtitle">Изучай испанский язык на практике!</span>
+                    </div>
+                </a>
+
+                <!-- Navigation -->
+                <button class="menu-toggle" aria-label="Открыть меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li>
+                            <a href="../index.html#hero" class="nav-link">Главная</a>
+                        </li>
+                        <li>
+                            <a href="../index.html#trainers" class="nav-link">Тренажёры</a>
+                        </li>
+                        <li>
+                            <a href="../index.html#lessons" class="nav-link">Уроки</a>
+                        </li>
+                        <li>
+                            <a href="../index.html#advantages" class="nav-link">О проекте</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- CTA -->
+                <a href="../index.html#trainers" class="btn btn-primary btn-primary-header">
+                    Начать обучение
+                </a>
             </div>
+        </div>
+    </header>
 
-            <div class="phrase-block">
-                <div class="phrase-es">¡Buenos días!</div>
-                <div class="phrase-ru">Доброе утро!</div>
-                <button class="audio-btn" onclick="speakPhrase('¡Buenos días!')">🔊 Произнести</button>
-            </div>
+    <!-- ==========================================================
+         ОСНОВНОЙ КОНТЕНТ
+    =========================================================== -->
 
-            <div class="phrase-block">
-                <div class="phrase-es">¡Buenas tardes!</div>
-                <div class="phrase-ru">Добрый день!</div>
-                <button class="audio-btn" onclick="speakPhrase('¡Buenas tardes!')">🔊 Произнести</button>
-            </div>
+    <main class="beginner-page">
+        <div class="beginner-container">
 
-            <div class="phrase-block">
-                <div class="phrase-es">¡Buenas noches!</div>
-                <div class="phrase-ru">Добрый вечер! / Спокойной ночи!</div>
-                <button class="audio-btn" onclick="speakPhrase('¡Buenas noches!')">🔊 Произнести</button>
-            </div>
+            <!-- Back Link -->
+            <a href="../index.html" class="back-link">
+                ← Вернуться на главную
+            </a>
 
-            <div class="phrase-block">
-                <div class="phrase-es">¿Cómo te llamas?</div>
-                <div class="phrase-ru">Как тебя зовут?</div>
-                <button class="audio-btn" onclick="speakPhrase('¿Cómo te llamas?')">🔊 Произнести</button>
-            </div>
-
-            <div class="phrase-block">
-                <div class="phrase-es">Me llamo...</div>
-                <div class="phrase-ru">Меня зовут...</div>
-                <button class="audio-btn" onclick="speakPhrase('Me llamo...')">🔊 Произнести</button>
-            </div>
-
-            <div class="phrase-block">
-                <div class="phrase-es">Mucho gusto</div>
-                <div class="phrase-ru">Очень приятно</div>
-                <button class="audio-btn" onclick="speakPhrase('Mucho gusto')">🔊 Произнести</button>
-            </div>
-
-            <div class="phrase-block">
-                <div class="phrase-es">¿De dónde eres?</div>
-                <div class="phrase-ru">Откуда ты?</div>
-                <button class="audio-btn" onclick="speakPhrase('¿De dónde eres?')">🔊 Произнести</button>
-            </div>
-
-            <div class="phrase-block">
-                <div class="phrase-es">Soy de Rusia</div>
-                <div class="phrase-ru">Я из России</div>
-                <button class="audio-btn" onclick="speakPhrase('Soy de Rusia')">🔊 Произнести</button>
-            </div>
-
-            <div class="phrase-block">
-                <div class="phrase-es">¡Hasta luego!</div>
-                <div class="phrase-ru">До скорого!</div>
-                <button class="audio-btn" onclick="speakPhrase('¡Hasta luego!')">🔊 Произнести</button>
-            </div>
-
-            <div class="phrase-block">
-                <div class="phrase-es">¡Adiós!</div>
-                <div class="phrase-ru">Пока! / До свидания!</div>
-                <button class="audio-btn" onclick="speakPhrase('¡Adiós!')">🔊 Произнести</button>
-            </div>
-
-            <div class="phrase-block">
-                <div class="phrase-es">Gracias</div>
-                <div class="phrase-ru">Спасибо</div>
-                <button class="audio-btn" onclick="speakPhrase('Gracias')">🔊 Произнести</button>
-            </div>
-
-            <div class="phrase-block">
-                <div class="phrase-es">Por favor</div>
-                <div class="phrase-ru">Пожалуйста (просьба)</div>
-                <button class="audio-btn" onclick="speakPhrase('Por favor')">🔊 Произнести</button>
-            </div>
-
-            <div class="phrase-block">
-                <div class="phrase-es">Lo siento</div>
-                <div class="phrase-ru">Извините</div>
-                <button class="audio-btn" onclick="speakPhrase('Lo siento')">🔊 Произнести</button>
-            </div>
-
-            <div class="phrase-block">
-                <div class="phrase-es">No entiendo</div>
-                <div class="phrase-ru">Я не понимаю</div>
-                <button class="audio-btn" onclick="speakPhrase('No entiendo')">🔊 Произнести</button>
-            </div>
-        </section>
-
-        <section class="trainer-section">
-            <h2>🎮 Тренажёр</h2>
-            <div id="trainer">
-                <div class="timer" id="timer">Время: 60 сек</div>
-                <div id="quiz-container">
-                    <!-- Вопросы будут добавлены через JS -->
+            <!-- Header Section -->
+            <div class="beginner-header">
+                <div class="beginner-badge">
+                    👶 Быстрый старт / Для новичков
                 </div>
-                <div id="result" style="display: none;">
-                    <div class="result-card">
-                        <h3>🎉 Тест завершён!</h3>
-                        <div class="score" id="final-score">0/10</div>
-                        <p id="feedback"></p>
-                        <button class="restart-btn" onclick="restartTrainer()">Пройти заново</button>
+                <h1 class="beginner-title">
+                    Часть 0: <span>Сленговая разминка</span>
+                </h1>
+                <p class="beginner-description">
+                    Страшно начинать со сложного подкаста? Начни отсюда! 
+                    Короткие пулемётные фразы из Мадрида, разбор базовой логики слов 
+                    и интерактивные упражнения. Всего 5 минут — и ты уже говоришь!
+                </p>
+
+                <!-- Stats -->
+                <div class="beginner-stats">
+                    <div class="stat-item">
+                        <span class="stat-icon">⏳</span>
+                        <span class="stat-text">5 минут</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🎯</span>
+                        <span class="stat-text">15 фраз</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🔊</span>
+                        <span class="stat-text">Аудио</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">✅</span>
+                        <span class="stat-text">Упражнения</span>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <div style="text-align: center;">
-            <a href="index.html" class="back-link">← Вернуться на главную</a>
+            <!-- Phrase Cards Section -->
+            <div class="beginner-card">
+                
+                <!-- Section 1: Базовые реакции -->
+                <div class="phrase-section">
+                    <h2 class="phrase-section-title">
+                        🔥 Базовые реакции
+                    </h2>
+                    <div class="phrase-grid">
+                        <div class="phrase-card" onclick="playPhrase('¡Vamos alla!', this)">
+                            <div class="phrase-es">¡Vamos allá!</div>
+                            <div class="phrase-ru">Погнали! / Вперёд! / Поехали!</div>
+                            <div class="phrase-audio-btn">🔊 Послушать</div>
+                        </div>
+                        <div class="phrase-card" onclick="playPhrase('¡Dime!', this)">
+                            <div class="phrase-es">¡Dime!</div>
+                            <div class="phrase-ru">Да, слушаю тебя! / Скажи мне!</div>
+                            <div class="phrase-audio-btn">🔊 Послушать</div>
+                        </div>
+                        <div class="phrase-card" onclick="playPhrase('¿En serio?', this)">
+                            <div class="phrase-es">¿En serio?</div>
+                            <div class="phrase-ru">Серьёзно? / Да ладно?</div>
+                            <div class="phrase-audio-btn">🔊 Послушать</div>
+                        </div>
+                        <div class="phrase-card" onclick="playPhrase('Exactamente.', this)">
+                            <div class="phrase-es">Exactamente.</div>
+                            <div class="phrase-ru">Именно так. / Точно.</div>
+                            <div class="phrase-audio-btn">🔊 Послушать</div>
+                        </div>
+                        <div class="phrase-card" onclick="playPhrase('¡Por supuesto!', this)">
+                            <div class="phrase-es">¡Por supuesto!</div>
+                            <div class="phrase-ru">Конечно! / Без сомнения!</div>
+                            <div class="phrase-audio-btn">🔊 Послушать</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Эмоции и мнения -->
+                <div class="phrase-section">
+                    <h2 class="phrase-section-title">
+                        💬 Эмоции и мнения
+                    </h2>
+                    <div class="phrase-grid">
+                        <div class="phrase-card" onclick="playPhrase('¡Eso es magia!', this)">
+                            <div class="phrase-es">¡Eso es magia!</div>
+                            <div class="phrase-ru">Это просто магия!</div>
+                            <div class="phrase-audio-btn">🔊 Послушать</div>
+                        </div>
+                        <div class="phrase-card" onclick="playPhrase('Es verdad.', this)">
+                            <div class="phrase-es">Es verdad.</div>
+                            <div class="phrase-ru">Это правда.</div>
+                            <div class="phrase-audio-btn">🔊 Послушать</div>
+                        </div>
+                        <div class="phrase-card" onclick="playPhrase('No estoy seguro.', this)">
+                            <div class="phrase-es">No estoy seguro.</div>
+                            <div class="phrase-ru">Я не уверен.</div>
+                            <div class="phrase-audio-btn">🔊 Послушать</div>
+                        </div>
+                        <div class="phrase-card" onclick="playPhrase('¡Qué bien!', this)">
+                            <div class="phrase-es">¡Qué bien!</div>
+                            <div class="phrase-ru">Как здорово!</div>
+                            <div class="phrase-audio-btn">🔊 Послушать</div>
+                        </div>
+                        <div class="phrase-card" onclick="playPhrase('Me parece genial.', this)">
+                            <div class="phrase-es">Me parece genial.</div>
+                            <div class="phrase-ru">Мне кажется, это отлично.</div>
+                            <div class="phrase-audio-btn">🔊 Послушать</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Повседневные фразы -->
+                <div class="phrase-section">
+                    <h2 class="phrase-section-title">
+                        🏠 Повседневные фразы
+                    </h2>
+                    <div class="phrase-grid">
+                        <div class="phrase-card" onclick="playPhrase('Cada día.', this)">
+                            <div class="phrase-es">Cada día.</div>
+                            <div class="phrase-ru">Каждый день.</div>
+                            <div class="phrase-audio-btn">🔊 Послушать</div>
+                        </div>
+                        <div class="phrase-card" onclick="playPhrase('Sin excepción.', this)">
+                            <div class="phrase-es">Sin excepción.</div>
+                            <div class="phrase-ru">Без исключения.</div>
+                            <div class="phrase-audio-btn">🔊 Послушать</div>
+                        </div>
+                        <div class="phrase-card" onclick="playPhrase('Prefiero no decirlo.', this)">
+                            <div class="phrase-es">Prefiero no decirlo.</div>
+                            <div class="phrase-ru">Я предпочитаю об этом не говорить.</div>
+                            <div class="phrase-audio-btn">🔊 Послушать</div>
+                        </div>
+                        <div class="phrase-card" onclick="playPhrase('Ya me arreglo.', this)">
+                            <div class="phrase-es">Ya me arreglo.</div>
+                            <div class="phrase-ru">Я как-нибудь сам разберусь.</div>
+                            <div class="phrase-audio-btn">🔊 Послушать</div>
+                        </div>
+                        <div class="phrase-card" onclick="playPhrase('¿Y luego qué?', this)">
+                            <div class="phrase-es">¿Y luego qué?</div>
+                            <div class="phrase-ru">Ну а потом что? / И что дальше?</div>
+                            <div class="phrase-audio-btn">🔊 Послушать</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Trainer Zone -->
+            <div class="trainer-zone">
+                <h3>🎮 Готов к практике?</h3>
+                <p>Пройди интерактивный тренажёр и закрепи эти фразы в памяти!</p>
+                <button id="start-trainer-btn" class="btn-large" onclick="startTrainer()">
+                    🚀 Начать тренировку
+                </button>
+            </div>
+
+            <!-- Interactive Trainer Section (Hidden by default) -->
+            <div id="trainer-section" class="beginner-card" style="display: none; margin-top: 30px;">
+                <h2 class="phrase-section-title">
+                    🎯 Проверь себя
+                </h2>
+                <div class="score-board" style="text-align: center; margin-bottom: 20px; font-size: 1.1rem; color: #687386;">
+                    Правильных ответов: <span id="score" style="color: #2563eb; font-weight: 700;">0</span> из 10
+                </div>
+                
+                <div class="timer-bar" style="width: 100%; height: 8px; background: #e9edf2; border-radius: 999px; margin-bottom: 25px; overflow: hidden;">
+                    <div class="timer-progress" id="progress" style="width: 100%; height: 100%; background: #2563eb; transition: width 1s linear;"></div>
+                </div>
+
+                <div id="question-display" style="background: #fff8e6; border-left: 5px solid #f2b705; padding: 25px; border-radius: 14px; font-size: 1.3rem; font-weight: 600; color: #243044; margin-bottom: 25px; text-align: center;">
+                    Нажми «Старт» чтобы начать
+                </div>
+
+                <input type="text" id="answer-input" placeholder="Введите фразу на испанском..." 
+                    style="width: 100%; padding: 16px 18px; border: 2px solid #e1e5eb; border-radius: 12px; font-size: 1.1rem; margin-bottom: 20px; outline: none; transition: border-color 0.2s;"
+                    disabled>
+
+                <button id="action-btn" onclick="handleAction()" 
+                    style="width: 100%; padding: 16px; background: linear-gradient(135deg, #2563eb, #4f8df7); color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease;">
+                    Старт
+                </button>
+
+                <div id="feedback" style="margin-top: 20px; font-size: 1.05rem; text-align: center; min-height: 30px;"></div>
+            </div>
+
         </div>
-    </div>
+    </main>
+
+    <!-- ==========================================================
+         FOOTER
+    =========================================================== -->
+
+    <footer id="footer">
+        <div class="container">
+            <div class="footer">
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <span class="logo-icon">🇪🇸</span>
+                        <span class="logo-title">Aprende Español</span>
+                    </div>
+                    <p class="footer-description">
+                        Изучай испанский язык на практике с помощью интерактивных тренажёров.
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <a href="../index.html#hero">Главная</a>
+                    <a href="../index.html#trainers">Тренажёры</a>
+                    <a href="../index.html#lessons">Уроки</a>
+                    <a href="../index.html#advantages">О проекте</a>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2024 Aprende Español. Все права защищены.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================================
+         SCRIPTS
+    =========================================================== -->
+
+    <script src="../assets/js/header.js"></script>
 
     <script>
-        // Озвучка фраз
-        function speakPhrase(text) {
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'es-ES';
-                utterance.rate = 0.9;
-                speechSynthesis.speak(utterance);
-            } else {
-                alert('Ваш браузер не поддерживает озвучку текста');
-            }
-        }
-
-        // Данные для тренажёра
-        const questions = [
-            {
-                question: "Как перевести «Привет! Как дела?»",
-                options: ["¡Hola! ¿Qué tal?", "¡Buenos días!", "¡Adiós!", "Gracias"],
-                correct: 0
-            },
-            {
-                question: "Что означает «Mucho gusto»?",
-                options: ["До свидания", "Очень приятно", "Я не понимаю", "Пожалуйста"],
-                correct: 1
-            },
-            {
-                question: "Как сказать «Меня зовут...»?",
-                options: ["¿Cómo te llamas?", "Me llamo...", "Soy de Rusia", "No entiendo"],
-                correct: 1
-            },
-            {
-                question: "Переведите «Добрый вечер!»",
-                options: ["¡Buenos días!", "¡Buenas tardes!", "¡Buenas noches!", "¡Hasta luego!"],
-                correct: 2
-            },
-            {
-                question: "Что значит «Gracias»?",
-                options: ["Пожалуйста", "Извините", "Спасибо", "Пока"],
-                correct: 2
-            },
-            {
-                question: "Как спросить «Откуда ты?»",
-                options: ["¿De dónde eres?", "¿Cómo te llamas?", "¿Qué tal?", "¿Dónde está?"],
-                correct: 0
-            },
-            {
-                question: "Переведите «Я из России»",
-                options: ["Soy de España", "Soy de Rusia", "Estoy en Rusia", "Vivo en Rusia"],
-                correct: 1
-            },
-            {
-                question: "Что означает «No entiendo»?",
-                options: ["Я понимаю", "Я не знаю", "Я не понимаю", "Я учу"],
-                correct: 2
-            },
-            {
-                question: "Как сказать «До скорого!»?",
-                options: ["¡Adiós!", "¡Hasta luego!", "¡Buenas noches!", "¡Por favor!"],
-                correct: 1
-            },
-            {
-                question: "Что значит «Por favor»?",
-                options: ["Спасибо", "Извините", "Пожалуйста (просьба)", "До свидания"],
-                correct: 2
-            }
+        // Фразы для тренажёра
+        const phrases = [
+            { ru: "Погнали! / Вперёд!", es: "¡Vamos allá!" },
+            { ru: "Да, слушаю тебя!", es: "¡Dime!" },
+            { ru: "Серьёзно? / Да ладно?", es: "¿En serio?" },
+            { ru: "Именно так. / Точно.", es: "Exactamente." },
+            { ru: "Конечно! / Без сомнения!", es: "¡Por supuesto!" },
+            { ru: "Это просто магия!", es: "¡Eso es magia!" },
+            { ru: "Это правда.", es: "Es verdad." },
+            { ru: "Я не уверен.", es: "No estoy seguro." },
+            { ru: "Как здорово!", es: "¡Qué bien!" },
+            { ru: "Каждый день.", es: "Cada día." },
+            { ru: "Без исключения.", es: "Sin excepción." },
+            { ru: "Я как-нибудь сам разберусь.", es: "Ya me arreglo." },
+            { ru: "Ну а потом что?", es: "¿Y luego qué?" },
+            { ru: "Я предпочитаю не говорить.", es: "Prefiero no decirlo." },
+            { ru: "Мне кажется, это отлично.", es: "Me parece genial." }
         ];
 
-        let currentQuestion = 0;
+        let currentQuestion = null;
         let score = 0;
-        let timerInterval;
-        let timeLeft = 60;
+        let questionsAnswered = 0;
+        let maxQuestions = 10;
+        let timerId = null;
+        let timeLeft = 30;
+        let isChecking = false;
 
-        function startTimer() {
-            timeLeft = 60;
-            document.getElementById('timer').textContent = `Время: ${timeLeft} сек`;
+        // Озвучка фразы
+        function playPhrase(text, element) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'es-ES';
+                utterance.rate = 0.85;
+                const voices = window.speechSynthesis.getVoices();
+                const esVoice = voices.find(v => v.lang.includes('es'));
+                if (esVoice) utterance.voice = esVoice;
+                window.speechSynthesis.speak(utterance);
+            }
             
-            timerInterval = setInterval(() => {
-                timeLeft--;
-                document.getElementById('timer').textContent = `Время: ${timeLeft} сек`;
-                
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    showResult();
-                }
-            }, 1000);
+            // Визуальный эффект
+            if (element) {
+                element.style.transform = 'scale(1.02)';
+                setTimeout(() => {
+                    element.style.transform = '';
+                }, 200);
+            }
         }
 
-        function loadQuestion() {
-            const container = document.getElementById('quiz-container');
-            
-            if (currentQuestion >= questions.length) {
-                showResult();
+        // Запуск тренажёра
+        function startTrainer() {
+            document.getElementById('trainer-section').style.display = 'block';
+            document.getElementById('start-trainer-btn').innerText = '🔄 Пройти ещё раз';
+            score = 0;
+            questionsAnswered = 0;
+            document.getElementById('score').innerText = score;
+            nextQuestion();
+        }
+
+        // Следующий вопрос
+        function nextQuestion() {
+            if (questionsAnswered >= maxQuestions) {
+                endTrainer();
                 return;
             }
 
-            const q = questions[currentQuestion];
-            container.innerHTML = `
-                <div class="question-card">
-                    <h3>Вопрос ${currentQuestion + 1} из ${questions.length}</h3>
-                    <p style="font-size: 1.2rem; margin: 20px 0;">${q.question}</p>
-                    <div class="options-grid">
-                        ${q.options.map((option, index) => `
-                            <button class="option-btn" onclick="checkAnswer(${index})">${option}</button>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-        }
-
-        function checkAnswer(selectedIndex) {
-            const q = questions[currentQuestion];
-            const buttons = document.querySelectorAll('.option-btn');
+            clearInterval(timerId);
+            currentQuestion = phrases[Math.floor(Math.random() * phrases.length)];
+            document.getElementById('question-display').innerText = currentQuestion.ru;
+            document.getElementById('answer-input').value = '';
+            document.getElementById('answer-input').disabled = false;
+            document.getElementById('answer-input').focus();
+            document.getElementById('feedback').innerText = '';
+            document.getElementById('action-btn').innerText = 'Проверить';
+            isChecking = true;
             
-            buttons.forEach((btn, index) => {
-                btn.disabled = true;
-                if (index === q.correct) {
-                    btn.classList.add('correct');
-                } else if (index === selectedIndex && selectedIndex !== q.correct) {
-                    btn.classList.add('wrong');
+            // Таймер
+            timeLeft = 30;
+            document.getElementById('progress').style.width = '100%';
+            timerId = setInterval(() => {
+                timeLeft--;
+                document.getElementById('progress').style.width = (timeLeft / 30 * 100) + '%';
+                if (timeLeft <= 0) {
+                    clearInterval(timerId);
+                    showFeedback(false, '⏱️ Время вышло!');
                 }
-            });
-
-            if (selectedIndex === q.correct) {
-                score++;
-            }
-
-            setTimeout(() => {
-                currentQuestion++;
-                loadQuestion();
             }, 1000);
         }
 
-        function showResult() {
-            clearInterval(timerInterval);
-            document.getElementById('quiz-container').style.display = 'none';
-            document.getElementById('result').style.display = 'block';
-            document.getElementById('final-score').textContent = `${score}/${questions.length}`;
-            
-            let feedback = '';
-            const percentage = (score / questions.length) * 100;
-            
-            if (percentage === 100) {
-                feedback = '🏆 Идеально! Вы настоящий эксперт!';
-            } else if (percentage >= 80) {
-                feedback = '🌟 Отличный результат! Так держать!';
-            } else if (percentage >= 60) {
-                feedback = '👍 Хорошо! Но можно лучше!';
+        // Проверка ответа
+        function checkAnswer() {
+            clearInterval(timerId);
+            const userAnswer = cleanString(document.getElementById('answer-input').value);
+            const correctAnswer = cleanString(currentQuestion.es);
+
+            if (userAnswer === correctAnswer || correctAnswer.includes(userAnswer) && userAnswer.length > 3) {
+                score++;
+                document.getElementById('score').innerText = score;
+                showFeedback(true, '🎯 Отлично! Правильно!');
             } else {
-                feedback = '📚 Не расстраивайтесь! Повторите материал и попробуйте снова!';
+                showFeedback(false, `Неверно. Правильно: <strong>${currentQuestion.es}</strong>`);
             }
-            
-            document.getElementById('feedback').textContent = feedback;
+
+            questionsAnswered++;
+            isChecking = false;
+            document.getElementById('action-btn').innerText = 'Следующий вопрос';
+            document.getElementById('answer-input').disabled = true;
         }
 
-        function restartTrainer() {
-            currentQuestion = 0;
-            score = 0;
-            document.getElementById('quiz-container').style.display = 'block';
-            document.getElementById('result').style.display = 'none';
-            loadQuestion();
-            startTimer();
+        // Показать обратную связь
+        function showFeedback(isCorrect, message) {
+            const feedbackEl = document.getElementById('feedback');
+            feedbackEl.innerHTML = message;
+            feedbackEl.style.color = isCorrect ? '#16834b' : '#d62828';
         }
 
-        // Инициализация тренажёра
-        document.addEventListener('DOMContentLoaded', () => {
-            loadQuestion();
-            startTimer();
+        // Обработчик кнопки
+        function handleAction() {
+            if (isChecking) {
+                checkAnswer();
+            } else {
+                nextQuestion();
+            }
+        }
+
+        // Очистка строки для сравнения
+        function cleanString(str) {
+            return str.toLowerCase()
+                .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()¿?]/g, "")
+                .replace(/[áäà]/g, "a").replace(/[éëè]/g, "e")
+                .replace(/[íïì]/g, "i").replace(/[óöò]/g, "o")
+                .replace(/[úüù]/g, "u").replace(/ñ/g, "n")
+                .trim();
+        }
+
+        // Завершение тренажёра
+        function endTrainer() {
+            document.getElementById('question-display').innerText = getFinalMessage(score);
+            document.getElementById('answer-input').style.display = 'none';
+            document.getElementById('action-btn').innerText = '🔄 Начать заново';
+            document.getElementById('action-btn').onclick = () => {
+                document.getElementById('answer-input').style.display = 'block';
+                document.getElementById('action-btn').onclick = handleAction;
+                startTrainer();
+            };
+            document.getElementById('progress').style.width = '0%';
+        }
+
+        // Финальное сообщение
+        function getFinalMessage(score) {
+            if (score === maxQuestions) return '🏆 ПОТРЯСАЮЩЕ! Идеальный результат!';
+            if (score >= 8) return '🎉 Отличная работа! Ты молодец!';
+            if (score >= 5) return '👍 Хорошо! Продолжай практиковаться!';
+            return '💪 Не сдавайся! Попробуй ещё раз!';
+        }
+
+        // Enter для проверки
+        document.getElementById('answer-input').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                handleAction();
+            }
         });
+
+        // Инициализация голосов
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = () => {
+                window.speechSynthesis.getVoices();
+            };
+        }
     </script>
+
 </body>
+
 </html>
