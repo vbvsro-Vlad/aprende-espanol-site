@@ -23,16 +23,16 @@
             border-radius: 16px;
             box-shadow: 0 15px 35px rgba(52, 152, 219, 0.15);
             width: 100%;
-            max-width: 520px;
+            max-width: 540px;
             text-align: center;
             border: 1px solid #2d3d5a;
         }
         h2 { color: #3498db; margin-top: 0; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; }
         
-        /* Карточка-лайфхак ДЛЯ звука */
+        /* Карточка-инструкция */
         .hacker-card {
-            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(46, 204, 113, 0.05) 100%);
-            border: 1px solid rgba(52, 152, 219, 0.3);
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.08) 0%, rgba(46, 204, 113, 0.03) 100%);
+            border: 1px solid rgba(52, 152, 219, 0.2);
             border-left: 5px solid #3498db;
             padding: 15px 20px;
             border-radius: 8px;
@@ -45,9 +45,6 @@
             font-size: 0.85rem;
             text-transform: uppercase;
             margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
         }
 
         .role-tag {
@@ -93,10 +90,18 @@
         }
         input[type="text"]:focus { border-color: #3498db; outline: none; }
         
+        /* Стили умного интерактивного разбора ошибок */
         .error-word {
             color: #ee5253;
             text-decoration: underline;
             font-weight: bold;
+        }
+        .correct-fix {
+            color: #10ac84;
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin-left: 4px;
+            margin-right: 8px;
         }
         .missing-word {
             color: #ff9f43;
@@ -129,7 +134,16 @@
             margin-bottom: 15px;
         }
         .control-btn:disabled { background: #16222f; color: #4b6584; cursor: not-allowed; }
-        .feedback { margin-top: 15px; font-size: 1.05rem; line-height: 1.5; min-height: 25px; }
+        .feedback { margin-top: 15px; font-size: 1rem; line-height: 1.5; min-height: 25px; text-align: left; }
+        
+        .explanation-card {
+            background: #16222f;
+            border-left: 4px solid #ff9f43;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -137,33 +151,32 @@
 <div class="container">
     <h2>Уровень 1: Сленговый Старт 👶</h2>
     
-    <!-- Карточка-лайфхак, которая ВСЕГДА горит ДО запуска звука -->
     <div class="hacker-card">
-        <div class="hacker-title">🔑 Секретный Ключ Фразы:</div>
-        <div id="pre-hint-text">Нажмите «ВКЛЮЧИТЬ ТРЕНАЖЁР», чтобы получить первый лайфхак.</div>
+        <div class="hacker-title">🎧 Инструкция:</div>
+        <div id="pre-hint-text">Нажмите «ВКЛЮЧИТЬ ТРЕНАЖЁР» для старта.</div>
     </div>
 
-    <button class="control-btn" id="audio-trigger-btn" onclick="playCurrentSegment()" disabled>🔊 Послушать всю фразу</button>
+    <button class="control-btn" id="audio-trigger-btn" onclick="playCurrentSegment()" disabled>🔊 Послушать реплику</button>
 
     <div class="dictation-zone">
         <div class="step-info" id="step-label">Реплика -- из --</div>
         <div id="role-tag-container"></div>
-        <div style="font-size: 0.9rem; color: #84817a; margin-bottom: 5px;">Что нужно написать:</div>
-        <div id="user-visual-feedback" style="font-size: 1.25rem; font-weight: bold; color: #f5f6fa; min-height: 30px;">...</div>
+        <div style="font-size: 0.9rem; color: #84817a; margin-bottom: 5px;">Ваш результат разбора:</div>
+        <div id="user-visual-feedback" style="font-size: 1.2rem; font-weight: bold; color: #f5f6fa; min-height: 30px; line-height: 1.6;">...</div>
     </div>
 
-    <audio id="player" src="intro.mp3" style="display: none;"></audio>
+    <audio id="player" src="../assets/audio/intro.mp3" style="display: none;"></audio>
 
-    <input type="text" id="user-input" placeholder="Сначала прочитайте ключ, послушайте и вводите..." autocomplete="off" disabled>
+    <input type="text" id="user-input" placeholder="Вводите то, что услышали..." autocomplete="off" disabled>
     
     <button class="action-btn" id="main-btn" onclick="initTrainer()">ВКЛЮЧИТЬ ТРЕНАЖЁР</button>
-    <button class="control-btn" id="giveup-btn" style="background-color: #ee5253; margin-top: 10px; display: none;" onclick="showCorrectAnswer()">🏳️ Сдаться и разобрать фразу</button>
+    <button class="control-btn" id="giveup-btn" style="background-color: #ee5253; margin-top: 10px; display: none;" onclick="showCorrectAnswer()">🏳️ Разобрать всю фразу целиком</button>
     
     <div class="feedback" id="feedback-zone"></div>
 </div>
 
 <script>
-    // БАЗА ДАННЫХ ДЛЯ САМЫХ НУЛЕВЫХ: ЛАЙФХАКИ "ДО" ЗВУКА, ТАЙМИНГИ И ФРАЗЫ
+    // БАЗА ДАННЫХ ДИКТАНТА: ТАЙМИНГИ И ИНДИВИДУАЛЬНЫЕ ОБЪЯСНЕНИЯ ДЛЯ КАЖДОГО СЛОВА
     const database = new Array(
         {
             speaker: "Пабло",
@@ -172,7 +185,11 @@
             end: 1.37,
             es: "Hola Que pasa",
             ru: "Привет! Как жизнь? / Что происходит?",
-            preHint: "🔑 В испанском языке буква <b>H</b> — абсолютно немая, она не читается вообще! А сленговый вопрос <b>¿Qué pasa?</b> слышится как [кэ паса], но пишется с обычной буквой <b>s</b>."
+            wordExpl: {
+                "hola": "<b>Ловушка немой H:</b> Буква <b>H</b> в испанском языке не читается вообще! Вы слышите [Ола], но писать нужно строго с H.",
+                "que": "<b>Сочетание QU:</b> Звук [К] перед гласными e/i передается через буквы <b>qu</b>. Буква u при этом не читается.",
+                "pasa": "<b>Звук С:</b> В сленговой фразе <i>¿Qué pasa?</i> (Что происходит?) слышится обычный звук [С], поэтому пишется простая буква <b>s</b>."
+            }
         },
         {
             speaker: "Люсия",
@@ -181,7 +198,10 @@
             end: 2.52,
             es: "Vamos tarde",
             ru: "Мы опаздываем!",
-            preHint: "🔑 Главная ловушка: буквы <b>V</b> и <b>B</b> в испанском звучат на 100% одинаково (как русская Б)! Чистого звука 'В' в речи нет. Вы услышите [Бамос тарде], но писать надо строго через <b>V</b> — <i>Vamos</i>!"
+            wordExpl: {
+                "vamos": "<b>Ловушка V / B:</b> Буквы V и B в испанском звучат одинаково (как русская Б)! Вы слышите [Бамос], но пишется это слово через <b>V</b>.",
+                "tarde": "<b>Конструкция ir tarde:</b> Дословно означает 'идти поздно'. В испанском нет глагола 'опаздывать', они используют этот шаблон."
+            }
         },
         {
             speaker: "Пабло",
@@ -190,7 +210,13 @@
             end: 4.47,
             es: "En serio Que hora es",
             ru: "Серьёзно? Который час?",
-            preHint: "🔑 Буква <b>S</b> в слове <i>serio</i> даёт обычный звук [С]. А в вопросе про время <b>¿Qué hora es?</b> снова прячется немая буква <b>H</b> в слове <i>hora</i> (час). Не забудьте её написать!"
+            wordExpl: {
+                "en": "<b>Предлог:</b> Обычный короткий предлог направления или состояния.",
+                "serio": "<b>Звук С:</b> В выражении <i>¿En serio?</i> (Серьёзно?) пишется обычная буква <b>s</b>.",
+                "que": "<b>Вопросительное слово:</b> Пишется через <b>qu</b> (буква u немая).",
+                "hora": "<b>Ловушка немой H:</b> В слове <i>hora</i> (час) первая буква <b>H</b> не произносится, но на письме обязательна!",
+                "es": "<b>Глагол:</b> Форма глагола <i>ser</i> (быть/являться) для третьего лица."
+            }
         },
         {
             speaker: "Люсия",
@@ -199,7 +225,13 @@
             end: 6.97,
             es: "Son las ocho Salgo corriendo",
             ru: "Уже восемь. Я убегаю со всех ног!",
-            preHint: "🔑 Вы услышите [Сон лас очо]. Чётко пишите слово <b>ocho</b> (восемь). Во второй части Люсия скажет <b>Salgo corriendo</b> — буква <b>S</b> на конце слышится слабо, но на письме она обязательна."
+            wordExpl: {
+                "son": "<b>Время:</b> Глагол 'быть' во множественном числе, используется для обозначения любого времени, кроме 1 часа.",
+                "las": "<b>Артикул:</b> Определенный артикул женского рода множественного числа.",
+                "ocho": "<b>Числительное:</b> Буквосочетание <b>ch</b> даёт мягкий русский звук [Ч]. Слово пишется как <i>ocho</i> (восемь).",
+                "salgo": "<b>Глагол:</b> Форма от глагола <i>salir</i> (выходить). Я выхожу.",
+                "corriendo": "<b>Герундий:</b> Означает бегом. Выражение <i>Salgo corriendo</i> используется, когда человек сильно торопится."
+            }
         },
         {
             speaker: "Пабло",
@@ -208,10 +240,14 @@
             end: 9.50,
             es: "Madre mia Hasta luego",
             ru: "Мама дорогая! До встречи!",
-            preHint: "🔑 Эмоциональный хит <b>¡Madre mía!</b> пишется просто. А в прощании <b>Hasta luego</b> (до встречи) на первом месте снова стоит классическая немая буква <b>H</b>!"
+            wordExpl: {
+                "madre": "<b>Существительное:</b> Мать.",
+                "mia": "<b>Местоимение:</b> Моя. Восклицание <i>¡Madre mía!</i> выражает сильное удивление, шок или восторг.",
+                "hasta": "<b>Ловушка немой H:</b> В предлоге <i>hasta</i> (до) буква <b>H</b> абсолютно немая, её не слышно в аудиопотоке.",
+                "luego": "<b>Наречие:</b> Потом. Фраза <i>Hasta luego</i> дословно переводится как 'До потом' и является стандартным прощанием."
+            }
         }
     );
-
     let currentStep = 0;
     let isCheckingStage = false;
     let checkInterval = null;
@@ -227,7 +263,7 @@
     const userVisualFeedback = document.getElementById('user-visual-feedback');
     const audioTriggerBtn = document.getElementById('audio-trigger-btn');
 
-    // Настраиваем корректный относительный путь к вашей папке assets локально
+    // Настраиваем корректный относительный путь к вашей папке assets на гитхабе и локально
     player.src = "../assets/audio/intro.mp3";
 
     function cleanString(str) {
@@ -252,8 +288,8 @@
         if (currentStep >= database.length) {
             stepLabel.innerText = "ФИНИШ";
             roleContainer.innerHTML = "";
-            preHintText.innerHTML = "🏆 Поздравляем! Базовые ловушки чтения успешно освоены!";
-            userVisualFeedback.innerText = "¡Todo marcha bien!";
+            preHintText.innerHTML = "🏆 Разминка завершена! Вы отлично справились со всеми ловушками чтения!";
+            userVisualFeedback.innerText = "¡Todo funciona, amigo!";
             userInput.disabled = true;
             userInput.value = "";
             feedbackZone.innerText = "";
@@ -268,11 +304,10 @@
 
         stepLabel.innerText = 'Реплика ' + (currentStep + 1) + ' из ' + database.length;
         
+        // Вовлекающий призыв к действию вместо готовой подсказки ДО звука
+        preHintText.innerHTML = "🎧 <b>Доверься своему слуху!</b> Послушай фразу Пабло или Люсии и запиши её так, как, по твоему мнению, она должна писаться на испанском. Не бойся ловушек — система мягко разберёт каждую опечатку после проверки.";
+        
         const currentData = database[currentStep];
-        
-        // ФАЗА 1: Сначала выводим секретный ключ ДО звука
-        preHintText.innerHTML = currentData.preHint;
-        
         roleContainer.innerHTML = '<span class="role-tag ' + currentData.roleClass + '">🗣️ Говорит: ' + currentData.speaker + '</span>';
         userVisualFeedback.innerHTML = "<span style='color:#84817a;'>Ждём ваш ввод...</span>";
         
@@ -308,30 +343,49 @@
         clearInterval(checkInterval);
         player.pause();
 
-        const rawUserWords = userInput.value.trim().split(/\s+/);
+        const userInputValue = userInput.value.trim();
+        if (!userInputValue) {
+            feedbackZone.innerHTML = "<span style='color: #ee5253; font-weight: bold;'>⚠️ Сначала введите то, что услышали!</span>";
+            return;
+        }
+
+        const rawUserWords = userInputValue.split(/\s+/);
         const correctClean = cleanString(database[currentStep].es);
         const correctWords = correctClean.split(" ");
+        const originalWordsWithCase = database[currentStep].es.split(" ");
         
         let visualResult = new Array();
+        let errorExplanations = new Array();
         let hasErrors = false;
 
-        // УМНЫЙ АЛГОРИТМ ПОСЛОВНОГО СРАВНЕНИЯ СТРОК
+        // ИНТЕЛЛЕКТУАЛЬНЫЙ ПОСЛОВНЫЙ АНАЛИЗ
         for (let i = 0; i < correctWords.length; i++) {
             const userWordRaw = rawUserWords[i];
+            const targetWordClean = correctWords[i];
+            const targetWordOriginal = originalWordsWithCase[i];
             
             if (!userWordRaw) {
-                // Если пользователь не дописал слова до конца фразы
-                visualResult.push("<span class='missing-word'>[?]</span>");
+                // Если пользователь пропустил слово в конце фразы
+                visualResult.push("<span class='missing-word'>[" + targetWordOriginal + "]</span>");
                 hasErrors = true;
+                
+                if (database[currentStep].wordExpl[targetWordClean]) {
+                    errorExplanations.push("<div class='explanation-card'>" + database[currentStep].wordExpl[targetWordClean] + "</div>");
+                }
             } else {
                 const userWordClean = cleanString(userWordRaw);
-                if (userWordClean === correctWords[i]) {
-                    // Слово совпало идеально
+                if (userWordClean === targetWordClean) {
+                    // Идельно совпало
                     visualResult.push(rawUserWords[i]);
                 } else {
-                    // Подсвечиваем конкретное слово красным цветом
-                    visualResult.push("<span class='error-word'>" + rawUserWords[i] + "</span>");
+                    // Ошибка: слово пользователя красным + оригинал в скобках зеленым
+                    visualResult.push("<span class='error-word'>" + rawUserWords[i] + "</span><span class='correct-fix'>(" + targetWordOriginal + ")</span>");
                     hasErrors = true;
+                    
+                    // Собираем точечное объяснение именно для этой опечатки
+                    if (database[currentStep].wordExpl[targetWordClean]) {
+                        errorExplanations.push("<div class='explanation-card'>" + database[currentStep].wordExpl[targetWordClean] + "</div>");
+                    }
                 }
             }
         }
@@ -339,14 +393,24 @@
         userVisualFeedback.innerHTML = visualResult.join(" ");
 
         if (!hasErrors && rawUserWords.length === correctWords.length) {
-            feedbackZone.innerHTML = "<span style='color: #10ac84; font-weight: bold;'>🎯 Отлично! Фраза написана абсолютно верно!</span>";
+            feedbackZone.innerHTML = "<span style='color: #10ac84; font-weight: bold;'>🎯 Великолепно! Ни одной ошибки. Идём дальше!</span>";
             currentStep++;
             mainBtn.innerText = "Следующая фраза ▶";
             mainBtn.onclick = triggerStep;
             giveUpBtn.style.display = "none";
             isCheckingStage = false;
         } else {
-            feedbackZone.innerHTML = '<span style="color: #ee5253; font-weight: bold;">⚠️ Найдена ошибка в буквах. Подсказка перевода: "' + database[currentStep].ru + '". Переслушайте и исправьте выделенное!</span>';
+            // Формируем блок разбора ошибок снизу
+            let explanationHTML = '<span style="color: #ee5253; font-weight: bold;">⚠️ Кое-где слух подвёл. Разбор ваших ловушек:</span>';
+            
+            if (errorExplanations.length > 0) {
+                // Выводим только те правила, в которых человек реально ошибся!
+                explanationHTML += errorExplanations.join("");
+            } else {
+                explanationHTML += "<div class='explanation-card'><b>Подсказка перевода:</b> \"" + database[currentStep].ru + "\". Возможно, вы написали лишние слова в конце фразы. Переслушайте ещё раз!</div>";
+            }
+            
+            feedbackZone.innerHTML = explanationHTML;
         }
     }
 
@@ -355,7 +419,7 @@
         player.pause();
         
         userVisualFeedback.innerHTML = database[currentStep].es;
-        feedbackZone.innerHTML = '<span style="color: #ff9f43; font-weight: bold;">Показан оригинал фразы. Перевод: "' + database[currentStep].ru + '"</span>';
+        feedbackZone.innerHTML = '<span style="color: #ff9f43; font-weight: bold;">Оригинал фразы показан. Перевод: "' + database[currentStep].ru + '"</span>';
         
         currentStep++;
         mainBtn.innerText = "Продолжить уровень";
