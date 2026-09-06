@@ -63,35 +63,47 @@
     flex-direction: column;
     align-items: flex-end;
     justify-content: center;
+    gap: 12px;
     min-width: 200px;
 }
 
 .beginner-banner-time {
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
     color: var(--color-text-light);
-    margin-bottom: 12px;
     font-weight: var(--font-weight-medium);
+    white-space: nowrap;
 }
 
 .beginner-banner-btn {
-    display: inline-block;
-    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     padding: 14px 28px;
     text-decoration: none;
     text-align: center;
     border-radius: var(--radius-md);
     font-weight: var(--font-weight-bold);
-    transition: var(--transition-fast);
+    transition: all 0.3s ease;
     box-sizing: border-box;
     background: linear-gradient(135deg, #2563eb, #4f8df7);
-    color: white;
+    color: white !important;
     font-size: var(--font-size-md);
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
 }
 
 .beginner-banner-btn:hover {
     background: linear-gradient(135deg, #1d4ed8, #3b82f6);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    text-decoration: none;
+    color: white !important;
+}
+
+.beginner-banner-btn:active {
+    transform: translateY(-1px);
 }
 
 /* ==========================================================
