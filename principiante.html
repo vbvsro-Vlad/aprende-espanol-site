@@ -1,73 +1,161 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Principiante — Испанский с нуля | Aprende Español</title>
-<meta name="description" content="Уроки испанского языка для начинающих с нулевого уровня. Простые объяснения и практические тренажёры.">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/css/style.css">
-<style>
-.principiante-page{padding:70px 0 90px}
-.principiante-hero{text-align:center;max-width:850px;margin:0 auto 55px}
-.principiante-hero h1{margin:18px 0 16px}
-.principiante-hero p{max-width:700px;margin:0 auto;line-height:1.7}
-.lesson-list{display:flex;flex-direction:column;gap:28px;max-width:900px;margin:0 auto}
-.lesson-card{background:#fff;border-radius:20px;padding:32px;box-shadow:0 10px 30px rgba(31,41,55,.08);border:1px solid #edf0f4}
-.lesson-number{display:inline-block;margin-bottom:12px;padding:6px 12px;border-radius:999px;background:#fff4d6;color:#b47b00;font-size:.8rem;font-weight:700}
-.lesson-card h2{margin:0 0 12px}.lesson-card p{line-height:1.7;margin:0 0 14px}.lesson-action{margin-top:22px}
-.lesson-action .btn{display:inline-flex;align-items:center;justify-content:center}
-.site-footer-link{text-align:center;margin-top:45px}
-@media(max-width:700px){.principiante-page{padding:45px 0 60px}.lesson-card{padding:24px 20px}.lesson-action .btn{width:100%}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Principiante — Испанский с нуля | Aprende Español</title>
+    <!-- Если файл лежит в папке trainers, путь к стилям будет ../assets/css/style.css -->
+    <!-- Если файл лежит в корне проекта, замените путь на assets/css/style.css -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        /* Дополнительные стили для интеграции киберпанк-уроков */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #0b0f19;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            list-style: none;
+            padding: 0;
+        }
+        .nav-links a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .lesson-card {
+            background: #151d30;
+            border: 1px solid #2d3d5a;
+            border-left: 5px solid #3498db;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .lesson-title {
+            color: #3498db;
+            margin-top: 0;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .hacker-box {
+            background: rgba(52, 152, 219, 0.05);
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid rgba(52, 152, 219, 0.2);
+            margin: 15px 0;
+        }
+        .action-btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .action-btn:hover { background-color: #2980b9; }
+        .action-btn-green {
+            background-color: #2ecc71;
+        }
+        .action-btn-green:hover { background-color: #27ae60; }
+    </style>
 </head>
 <body>
-<header id="header">
-<div class="container"><div class="header">
-<a href="index.html" class="logo"><span class="logo-icon">🇪🇸</span><div class="logo-text"><span class="logo-title">Aprende Español</span><span class="logo-subtitle">Изучай испанский язык на практике!</span></div></a>
-<nav class="nav"><ul class="nav-list"><li><a href="index.html" class="nav-link">Главная</a></li><li><a href="index.html#trainers" class="nav-link">Тренажёры</a></li></ul></nav>
-<a href="index.html#trainers" class="btn btn-primary">Начать обучение</a>
-</div></div>
-</header>
 
-<main class="principiante-page">
 <div class="container">
-<section class="principiante-hero">
-<span class="badge">🇪🇸 PRINCIPIANTE</span>
-<h1>Испанский с нуля</h1>
-<p>Пошаговый курс для тех, кто только начинает знакомство с испанским языком. Небольшие объяснения, практика и тренажёры после каждого урока.</p>
-</section>
+    <ul class="nav-links">
+        <li><a href="../index.html">← Главная</a></li>
+    </ul>
 
-<section class="lesson-list">
-<article class="lesson-card">
-<span class="lesson-number">Урок 1</span>
-<h2>Первые шаги</h2>
-<p>Здесь будет короткое знакомство с базовыми испанскими фразами, их звучанием и простыми правилами употребления.</p>
-<p>После объяснения ученик сможет сразу перейти к практике и закрепить материал с помощью первого тренажёра.</p>
-<div class="lesson-action"><a href="aprende-espanol-site/trainers/zero.html" class="btn btn-primary">🚀 Перейти к тренажёру</a></div>
-</article>
+    <h1 style="color: #2ecc71; text-transform: uppercase; letter-spacing: 1px;">🇪🇸 Principiante: Испанский с нуля</h1>
+    <p style="color: #84817a; margin-bottom: 40px;">Пошаговый курс для тех, кто только начинает знакомство с испанским языком. Небольшие объяснения, практика и тренажёры после каждого урока.</p>
 
-<article class="lesson-card">
-<span class="lesson-number">Урок 2</span>
-<h2>Слушаем и записываем услышанное</h2>
-<p>На этом уроке учимся не просто читать испанский текст, а распознавать его на слух.</p>
-<p>Тренажёр «Разминка Новичка» проигрывает отдельную испанскую реплику. Нужно внимательно прослушать её и самостоятельно ввести услышанный испанский текст. Если возникла трудность, можно воспользоваться подсказкой. Реплику можно переслушать несколько раз.</p>
-<div class="lesson-action"><a href="aprende-espanol-site/trainers/principiante2.html" class="btn btn-primary" target="_blank" rel="noopener">🎧 Открыть тренажёр</a></div>
-</article>
+    <!-- УРОК 1: СВЕЖИЙ ТЕКСТ С УМНОЙ ПОДСКАЗКОЙ -->
+    <div class="lesson-card">
+        <div style="font-size: 0.8rem; font-weight: bold; color: #84817a; text-transform: uppercase;">Шаг 1</div>
+        <h2 class="lesson-title">Урок 1: Взлом испанского произношения</h2>
+        
+        <p style="line-height: 1.6; color: #f5f6fa;">
+            Добро пожаловать на твой первый рубеж! Главная проблема испанского языка для новичка — это <b>жестокий обман слуха</b>. Испанцы произносят одни звуки, но на письме используют совершенно другие буквы. Из-за этого стандартные диктанты превращаются в боль.
+        </p>
 
-<article class="lesson-card">
-<span class="lesson-number">Урок 3</span>
-<h2>Закрепляем первые фразы</h2>
-<p>Здесь будет следующий шаг: повторение уже изученного материала и переход к более самостоятельной практике.</p>
-<p>После короткого объяснения ученик сможет открыть третий тренажёр и проверить, насколько уверенно он уже понимает и использует изученные фразы.</p>
-<div class="lesson-action"><a href="#" class="btn btn-primary">🚀 Перейти к тренажёру</a></div>
-</article>
-</section>
+        <div class="hacker-box">
+            <h4 style="color: #3498db; margin: 0 0 8px 0; text-transform: uppercase; font-size: 0.85rem;">⚠️ 3 главные ловушки, с которыми ты столкнёшься прямо сейчас:</h4>
+            <ul style="margin: 0; padding-left: 20px; color: #a5b1c2; font-size: 0.95rem; line-height: 1.5;">
+                <li><b>Немая «H»:</b> Буква H в испанском не читается <i>никогда</i>. Ты услышишь [Ола], но рука должна написать <i>Hola</i>.</li>
+                <li><b>Маскировка «V/B»:</b> Звука «В» в испанском нет. Буквы V и B звучат как «Б». Ты услышишь [Бамос], но пишется <i>Vamos</i>.</li>
+                <li><b>Исчезающая «S»:</b> На концах слов буквы S съедаются в беглой речи, но грамматика требует их наличия.</li>
+            </ul>
+        </div>
 
-<div class="site-footer-link"><a href="index.html" class="btn btn-secondary">← Вернуться на главную</a></div>
+        <h4 style="color: #2ecc71; text-transform: uppercase; font-size: 0.85rem; margin-bottom: 5px;">📋 Инструкция к тренажёру:</h4>
+        <p style="color: #a5b1c2; font-size: 0.95rem; line-height: 1.5; margin-top: 0;">
+            1. Доверься слуху и запиши фразу так, как тебе кажется она должна писаться. Делать ошибки — обязательно!<br>
+            2. Если ты ошибся, тренажёр автоматически зачеркнёт твоё слово, а рядом в скобках напишет правильный оригинал.<br>
+            3. Снизу появится точечное объяснение именно той ловушки, в которую ты попался. Поле ввода очистится само.
+        </p>
+
+        <!-- ПРАВИЛЬНАЯ ССЫЛКА НА ТРЕНАЖЕР УРОВНЯ 0 (Файлы в одной папке trainers) -->
+        <a href="trainers/zero.html" class="action-btn">🚀 Перейти к тренажёру «Абсолютный Ноль»</a>
+    </div>
+    <!-- УРОК 2: КЛАССИЧЕСКИЙ ДИКТАНТ БУКВУ В БУКВУ -->
+    <div class="lesson-card" style="border-left-color: #2ecc71;">
+        <div style="font-size: 0.8rem; font-weight: bold; color: #84817a; text-transform: uppercase;">Шаг 2</div>
+        <h2 class="lesson-title" style="color: #2ecc71;">Урок 2: Слушаем и записываем услышанное</h2>
+        
+        <p style="line-height: 1.6; color: #f5f6fa;">
+            На этом уроке мы переходим к более осознанному аудированию. Твоё ухо уже познакомилось с базовыми ловушками, теперь пора проверить концентрацию и закрепить мышечную память пальцев.
+        </p>
+
+        <p style="color: #a5b1c2; font-size: 0.95rem; line-height: 1.5;">
+            Тренажёр «Разминка Новичка» проигрывает отдельную испанскую реплику по таймингам. Нужно внимательно прослушать её и самостоятельно ввести услышанный испанский текст в ультра-строгом режиме. Если возникла трудность, можно воспользоваться подсказкой. Реплику можно переслушать несколько раз.
+        </p>
+
+        <!-- ПРАВИЛЬНАЯ ССЫЛКА НА ВТОРОЙ ТРЕНАЖЕР (Файлы в одной папке trainers) -->
+        <a href="trainers/principiante2.html" class="action-btn action-btn-green">🎧 Открыть тренажёр «Разминка Новичка»</a>
+    </div>
+
+    <!-- УРОК 3: ПОДГОТОВКА К БУДУЩЕМУ МАТЕРИАЛУ -->
+    <div class="lesson-card" style="border-left-color: #e67e22; opacity: 0.85;">
+        <div style="font-size: 0.8rem; font-weight: bold; color: #84817a; text-transform: uppercase;">Шаг 3</div>
+        <h2 class="lesson-title" style="color: #e67e22;">Урок 3: Закрепляем первые фразы</h2>
+        
+        <p style="line-height: 1.6; color: #f5f6fa;">
+            Здесь будет следующий шаг: повторение уже изученного материала, разбор грамматических связок и переход к более самостоятельной бытовой практике.
+        </p>
+
+        <p style="color: #a5b1c2; font-size: 0.95rem; line-height: 1.5;">
+            После короткого объяснения ученик сможет открыть третий тренажёр и проверить, насколько уверенно он уже понимает и использует изученные фразы.
+        </p>
+
+        <a href="#" class="action-btn" style="background-color: #e67e22; cursor: not-allowed;" onclick="return false;">🚀 Скоро открытие</a>
+    </div>
+
+    <!-- ФУТЕР И ВЫХОД -->
+    <div style="text-align: left; margin-top: 40px; border-top: 1px solid #2d3d5a; padding-top: 20px;">
+        <a href="../index.html" style="color: #3498db; text-decoration: none; font-weight: bold; font-size: 0.95rem;">← Вернуться на главную</a>
+    </div>
+
+    <p style="color: #4b6584; font-size: 0.8rem; margin-top: 30px; text-align: center;">
+        © 2026 Aprende Español. Все права защищены.
+    </p>
 </div>
-</main>
 
-<footer id="footer"><div class="container"><div class="footer-bottom">© 2026 Aprende Español. Все права защищены.</div></div></footer>
 </body>
 </html>
