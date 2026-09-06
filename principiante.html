@@ -1,1 +1,513 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Испанский для начинающих | Principiante</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/sections/beginner-banner.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .phrase-block {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .phrase-block:hover {
+            transform: translateY(-5px);
+        }
+
+        .phrase-es {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 10px;
+        }
+
+        .phrase-ru {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E8E);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .audio-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .audio-btn:active {
+            transform: scale(0.95);
+        }
+
+        .trainer-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .question-card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .option-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .option-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .option-btn.correct {
+            background: #4CAF50;
+            border-color: #4CAF50;
+        }
+
+        .option-btn.wrong {
+            background: #f44336;
+            border-color: #f44336;
+        }
+
+        .timer {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #FFD700;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .score {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FFD700;
+            margin: 20px 0;
+        }
+
+        .restart-btn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+            margin-top: 20px;
+        }
+
+        .restart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .phrase-es {
+                font-size: 1.3rem;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🇪🇸 Испанский для начинающих</h1>
+            <p class="subtitle">Часть 0: Сленговая разминка</p>
+        </header>
+
+        <section class="content-section">
+            <h2>📚 Полезные фразы</h2>
+
+            <div class="phrase-block">
+                <div class="phrase-es">¡Hola! ¿Qué tal?</div>
+                <div class="phrase-ru">Привет! Как дела?</div>
+                <button class="audio-btn" onclick="speakPhrase('¡Hola! ¿Qué tal?')">🔊 Произнести</button>
+            </div>
+
+            <div class="phrase-block">
+                <div class="phrase-es">¡Buenos días!</div>
+                <div class="phrase-ru">Доброе утро!</div>
+                <button class="audio-btn" onclick="speakPhrase('¡Buenos días!')">🔊 Произнести</button>
+            </div>
+
+            <div class="phrase-block">
+                <div class="phrase-es">¡Buenas tardes!</div>
+                <div class="phrase-ru">Добрый день!</div>
+                <button class="audio-btn" onclick="speakPhrase('¡Buenas tardes!')">🔊 Произнести</button>
+            </div>
+
+            <div class="phrase-block">
+                <div class="phrase-es">¡Buenas noches!</div>
+                <div class="phrase-ru">Добрый вечер! / Спокойной ночи!</div>
+                <button class="audio-btn" onclick="speakPhrase('¡Buenas noches!')">🔊 Произнести</button>
+            </div>
+
+            <div class="phrase-block">
+                <div class="phrase-es">¿Cómo te llamas?</div>
+                <div class="phrase-ru">Как тебя зовут?</div>
+                <button class="audio-btn" onclick="speakPhrase('¿Cómo te llamas?')">🔊 Произнести</button>
+            </div>
+
+            <div class="phrase-block">
+                <div class="phrase-es">Me llamo...</div>
+                <div class="phrase-ru">Меня зовут...</div>
+                <button class="audio-btn" onclick="speakPhrase('Me llamo...')">🔊 Произнести</button>
+            </div>
+
+            <div class="phrase-block">
+                <div class="phrase-es">Mucho gusto</div>
+                <div class="phrase-ru">Очень приятно</div>
+                <button class="audio-btn" onclick="speakPhrase('Mucho gusto')">🔊 Произнести</button>
+            </div>
+
+            <div class="phrase-block">
+                <div class="phrase-es">¿De dónde eres?</div>
+                <div class="phrase-ru">Откуда ты?</div>
+                <button class="audio-btn" onclick="speakPhrase('¿De dónde eres?')">🔊 Произнести</button>
+            </div>
+
+            <div class="phrase-block">
+                <div class="phrase-es">Soy de Rusia</div>
+                <div class="phrase-ru">Я из России</div>
+                <button class="audio-btn" onclick="speakPhrase('Soy de Rusia')">🔊 Произнести</button>
+            </div>
+
+            <div class="phrase-block">
+                <div class="phrase-es">¡Hasta luego!</div>
+                <div class="phrase-ru">До скорого!</div>
+                <button class="audio-btn" onclick="speakPhrase('¡Hasta luego!')">🔊 Произнести</button>
+            </div>
+
+            <div class="phrase-block">
+                <div class="phrase-es">¡Adiós!</div>
+                <div class="phrase-ru">Пока! / До свидания!</div>
+                <button class="audio-btn" onclick="speakPhrase('¡Adiós!')">🔊 Произнести</button>
+            </div>
+
+            <div class="phrase-block">
+                <div class="phrase-es">Gracias</div>
+                <div class="phrase-ru">Спасибо</div>
+                <button class="audio-btn" onclick="speakPhrase('Gracias')">🔊 Произнести</button>
+            </div>
+
+            <div class="phrase-block">
+                <div class="phrase-es">Por favor</div>
+                <div class="phrase-ru">Пожалуйста (просьба)</div>
+                <button class="audio-btn" onclick="speakPhrase('Por favor')">🔊 Произнести</button>
+            </div>
+
+            <div class="phrase-block">
+                <div class="phrase-es">Lo siento</div>
+                <div class="phrase-ru">Извините</div>
+                <button class="audio-btn" onclick="speakPhrase('Lo siento')">🔊 Произнести</button>
+            </div>
+
+            <div class="phrase-block">
+                <div class="phrase-es">No entiendo</div>
+                <div class="phrase-ru">Я не понимаю</div>
+                <button class="audio-btn" onclick="speakPhrase('No entiendo')">🔊 Произнести</button>
+            </div>
+        </section>
+
+        <section class="trainer-section">
+            <h2>🎮 Тренажёр</h2>
+            <div id="trainer">
+                <div class="timer" id="timer">Время: 60 сек</div>
+                <div id="quiz-container">
+                    <!-- Вопросы будут добавлены через JS -->
+                </div>
+                <div id="result" style="display: none;">
+                    <div class="result-card">
+                        <h3>🎉 Тест завершён!</h3>
+                        <div class="score" id="final-score">0/10</div>
+                        <p id="feedback"></p>
+                        <button class="restart-btn" onclick="restartTrainer()">Пройти заново</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="back-link">← Вернуться на главную</a>
+        </div>
+    </div>
+
+    <script>
+        // Озвучка фраз
+        function speakPhrase(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'es-ES';
+                utterance.rate = 0.9;
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('Ваш браузер не поддерживает озвучку текста');
+            }
+        }
+
+        // Данные для тренажёра
+        const questions = [
+            {
+                question: "Как перевести «Привет! Как дела?»",
+                options: ["¡Hola! ¿Qué tal?", "¡Buenos días!", "¡Adiós!", "Gracias"],
+                correct: 0
+            },
+            {
+                question: "Что означает «Mucho gusto»?",
+                options: ["До свидания", "Очень приятно", "Я не понимаю", "Пожалуйста"],
+                correct: 1
+            },
+            {
+                question: "Как сказать «Меня зовут...»?",
+                options: ["¿Cómo te llamas?", "Me llamo...", "Soy de Rusia", "No entiendo"],
+                correct: 1
+            },
+            {
+                question: "Переведите «Добрый вечер!»",
+                options: ["¡Buenos días!", "¡Buenas tardes!", "¡Buenas noches!", "¡Hasta luego!"],
+                correct: 2
+            },
+            {
+                question: "Что значит «Gracias»?",
+                options: ["Пожалуйста", "Извините", "Спасибо", "Пока"],
+                correct: 2
+            },
+            {
+                question: "Как спросить «Откуда ты?»",
+                options: ["¿De dónde eres?", "¿Cómo te llamas?", "¿Qué tal?", "¿Dónde está?"],
+                correct: 0
+            },
+            {
+                question: "Переведите «Я из России»",
+                options: ["Soy de España", "Soy de Rusia", "Estoy en Rusia", "Vivo en Rusia"],
+                correct: 1
+            },
+            {
+                question: "Что означает «No entiendo»?",
+                options: ["Я понимаю", "Я не знаю", "Я не понимаю", "Я учу"],
+                correct: 2
+            },
+            {
+                question: "Как сказать «До скорого!»?",
+                options: ["¡Adiós!", "¡Hasta luego!", "¡Buenas noches!", "¡Por favor!"],
+                correct: 1
+            },
+            {
+                question: "Что значит «Por favor»?",
+                options: ["Спасибо", "Извините", "Пожалуйста (просьба)", "До свидания"],
+                correct: 2
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let timerInterval;
+        let timeLeft = 60;
+
+        function startTimer() {
+            timeLeft = 60;
+            document.getElementById('timer').textContent = `Время: ${timeLeft} сек`;
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer').textContent = `Время: ${timeLeft} сек`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    showResult();
+                }
+            }, 1000);
+        }
+
+        function loadQuestion() {
+            const container = document.getElementById('quiz-container');
+
+            if (currentQuestion >= questions.length) {
+                showResult();
+                return;
+            }
+
+            const q = questions[currentQuestion];
+            container.innerHTML = `
+                <div class="question-card">
+                    <h3>Вопрос ${currentQuestion + 1} из ${questions.length}</h3>
+                    <p style="font-size: 1.2rem; margin: 20px 0;">${q.question}</p>
+                    <div class="options-grid">
+                        ${q.options.map((option, index) => `
+                            <button class="option-btn" onclick="checkAnswer(${index})">${option}</button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkAnswer(selectedIndex) {
+            const q = questions[currentQuestion];
+            const buttons = document.querySelectorAll('.option-btn');
+
+            buttons.forEach((btn, index) => {
+                btn.disabled = true;
+                if (index === q.correct) {
+                    btn.classList.add('correct');
+                } else if (index === selectedIndex && selectedIndex !== q.correct) {
+                    btn.classList.add('wrong');
+                }
+            });
+
+            if (selectedIndex === q.correct) {
+                score++;
+            }
+
+            setTimeout(() => {
+                currentQuestion++;
+                loadQuestion();
+            }, 1000);
+        }
+
+        function showResult() {
+            clearInterval(timerInterval);
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('final-score').textContent = `${score}/${questions.length}`;
+
+            let feedback = '';
+            const percentage = (score / questions.length) * 100;
+
+            if (percentage === 100) {
+                feedback = '🏆 Идеально! Вы настоящий эксперт!';
+            } else if (percentage >= 80) {
+                feedback = '🌟 Отличный результат! Так держать!';
+            } else if (percentage >= 60) {
+                feedback = '👍 Хорошо! Но можно лучше!';
+            } else {
+                feedback = '📚 Не расстраивайтесь! Повторите материал и попробуйте снова!';
+            }
+
+            document.getElementById('feedback').textContent = feedback;
+        }
+
+        function restartTrainer() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById('quiz-container').style.display = 'block';
+            document.getElementById('result').style.display = 'none';
+            loadQuestion();
+            startTimer();
+        }
+
+        // Инициализация тренажёра
+        document.addEventListener('DOMContentLoaded', () => {
+            loadQuestion();
+            startTimer();
+        });
+    </script>
+</body>
+</html>
 
