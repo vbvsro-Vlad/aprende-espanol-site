@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprende Español: Абсолютный Ноль 🥇</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0b0f19;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #fff;
+            padding: 20px;
+        }
+        .container {
+            background: #151d30;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(52, 152, 219, 0.15);
+            width: 100%;
+            max-width: 520px;
+            text-align: center;
+            border: 1px solid #2d3d5a;
+        }
+        h2 { color: #3498db; margin-top: 0; font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* Карточка-лайфхак ДЛЯ звука */
+        .hacker-card {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(46, 204, 113, 0.05) 100%);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            border-left: 5px solid #3498db;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .hacker-title {
+            font-weight: bold;
+            color: #3498db;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .role-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .role-pablo { background: rgba(52, 152, 219, 0.2); color: #3498db; }
+        .role-lucia { background: rgba(230, 126, 34, 0.2); color: #e67e22; }
+
+        .dictation-zone {
+            background: #1f2d4d;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #233554;
+            text-align: left;
+        }
+        .step-info {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #84817a;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #3b5998;
+            background-color: #0b0f19;
+            color: white;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus { border-color: #3498db; outline: none; }
+        
+        .error-word {
+            color: #ee5253;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        .missing-word {
+            color: #ff9f43;
+            font-style: italic;
+        }
+        
+        .action-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .action-btn:hover { background-color: #2980b9; }
+        .control-btn {
+            background: #233554;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .control-btn:disabled { background: #16222f; color: #4b6584; cursor: not-allowed; }
+        .feedback { margin-top: 15px; font-size: 1.05rem; line-height: 1.5; min-height: 25px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Уровень 1: Сленговый Старт 👶</h2>
+    
+    <!-- Карточка-лайфхак, которая ВСЕГДА горит ДО запуска звука -->
+    <div class="hacker-card">
+        <div class="hacker-title">🔑 Секретный Ключ Фразы:</div>
+        <div id="pre-hint-text">Нажмите «ВКЛЮЧИТЬ ТРЕНАЖЁР», чтобы получить первый лайфхак.</div>
+    </div>
+
+    <button class="control-btn" id="audio-trigger-btn" onclick="playCurrentSegment()" disabled>🔊 Послушать всю фразу</button>
+
+    <div class="dictation-zone">
+        <div class="step-info" id="step-label">Реплика -- из --</div>
+        <div id="role-tag-container"></div>
+        <div style="font-size: 0.9rem; color: #84817a; margin-bottom: 5px;">Что нужно написать:</div>
+        <div id="user-visual-feedback" style="font-size: 1.25rem; font-weight: bold; color: #f5f6fa; min-height: 30px;">...</div>
+    </div>
+
+    <audio id="player" src="intro.mp3" style="display: none;"></audio>
+
+    <input type="text" id="user-input" placeholder="Сначала прочитайте ключ, послушайте и вводите..." autocomplete="off" disabled>
+    
+    <button class="action-btn" id="main-btn" onclick="initTrainer()">ВКЛЮЧИТЬ ТРЕНАЖЁР</button>
+    <button class="control-btn" id="giveup-btn" style="background-color: #ee5253; margin-top: 10px; display: none;" onclick="showCorrectAnswer()">🏳️ Сдаться и разобрать фразу</button>
+    
+    <div class="feedback" id="feedback-zone"></div>
+</div>
+
+<script>
